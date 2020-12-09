@@ -1,0 +1,4 @@
+LDA f
+SBA e
+AOT 0
+HLT 0
