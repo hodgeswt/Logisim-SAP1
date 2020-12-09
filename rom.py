@@ -48,6 +48,7 @@ JMP = 0b0100
 HLT = 0b0101
 ADA = 0b0110
 SBA = 0b0111
+STA = 0b1000
 
 i = 0b0
 
@@ -88,6 +89,10 @@ code[0b100][ADA] = '{0:0{1}X}'.format(EO | AI, 4)
 code[0b10][SBA] = '{0:0{1}X}'.format(IO | MI, 4)
 code[0b11][SBA] = '{0:0{1}X}'.format(RO | BI, 4)
 code[0b100][SBA] = '{0:0{1}X}'.format(S | EO | AI, 4)
+ 
+#STA
+code[0b10][STA] = '{0:0{1}X}'.format(IO | MI, 4)
+code[0b11][STA] = '{0:0{1}X}'.format(AO | RI, 4)
 
 c = 0
 for i in code:

@@ -10,7 +10,8 @@ opcodes = {
 	'JMP' : 0b0100, # Jump operation to line indicated by operand
 	'HLT' : 0b0101, # Halt execution
 	'ADA' : 0b0110, # Add value stored at memory address operand to the A register
-	'SBA' : 0b0111  # Subtract value stored at mem addrs operand to the A register
+	'SBA' : 0b0111, # Subtract value stored at mem addrs operand to the A register
+	'STA' : 0b1000  # Store value of A register to provided memory address
 }
 
 code = ['{0:0{1}X}'.format(0b0,4)] * 16

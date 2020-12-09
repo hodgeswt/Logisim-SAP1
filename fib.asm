@@ -1,0 +1,13 @@
+AOT 0 
+LDA f 
+AOT 0 
+LDA f 
+ADA e
+AOT 0
+STA d
+LDA f
+STA e
+LDA d
+STA f
+JMP 3
+HLT 0
