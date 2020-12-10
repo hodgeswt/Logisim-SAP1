@@ -1,1 +1,3 @@
+LDA ff
+AOT 0
 HLT 0
