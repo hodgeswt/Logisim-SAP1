@@ -29,7 +29,10 @@ opcodes = {
  	'BOT' : 0b1010, # Output value at B register to display
  	'ADB' : 0b1011, # Add value at ram address to B register - Overwrites A register
  	'SBB' : 0b1100, # Subtract value at ram address from B register - Overwrites A register
- 	'STB' : 0b1101  # STore B at indicated memory address
+ 	'STB' : 0b1101, # Store B at indicated memory address
+	'BEQ' : 0b1110, # Jumps to provided memory address if the equal flag is set
+	'BNE' : 0b1111, # Jumps to provided memory address if the equal flag was not set
+	'UFR' : 0b10000 # Latches outputs from ALU to the flags register
 }
 
 code = ['{0:0{1}X}'.format(0b0,4) for i in range(size)]
