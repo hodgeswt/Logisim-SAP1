@@ -1,27 +1,14 @@
 
 rom = "v2.0 raw\n"
 
-code = [
-	[0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-    [0b0] * 16,
-]
+code = [['0000' for i in range(0b100000000)] for j in range(0b10000)]
 
-# Address: 0000 0000
+# Address: 0000 00000000
+#          code[step][op]
 #		   step op
+
+def to_hex(w):
+	return hex(int(bin(w),2))[2:].rjust(4,'0')
 
 J   = 0b01000000000000000
 CE  = 0b00100000000000000
@@ -50,62 +37,51 @@ ADA = 0b0110
 SBA = 0b0111
 STA = 0b1000
 
-i = 0b0
-
-for t_step in range(0b0, 0b10000):
-	for op in range(0b0, 0b10000):
-		if op == ROT:
-			print("{0:b}".format(t_step), "{0:b}".format(op))
-		# Establish fetch
-		if (t_step == 0b0):
-			code[t_step][op] = '{0:0{1}X}'.format(CO | MI, 4)
-		elif (t_step == 0b1):
-			code[t_step][op] = '{0:0{1}X}'.format(RO | II | CE, 4)
-		else:
-			code[t_step][op] = '{0:0{1}X}'.format(0b0, 4)
-
+code[0b0000] = [to_hex(CO|MI)] * 0b100000000
+code[0b0001] = [to_hex(RO|II|CE)] * 0b100000000
+	
 #LDA
-code[0b10][LDA] = '{0:0{1}X}'.format(IO | MI, 4)
-code[0b11][LDA] = '{0:0{1}X}'.format(RO | AI, 4) 
+code[0b0010][LDA] = to_hex(IO | MI)
+code[0b0011][LDA] = to_hex(RO | AI) 
 
 #ROT
-code[0b10][ROT] = '{0:0{1}X}'.format(RO | OI, 4)
+code[2][ROT] = to_hex(RO | OI)
 
 #AOT
-code[0b10][AOT] = '{0:0{1}X}'.format(AO | OI, 4)
+code[2][AOT] = to_hex(AO | OI)
 
 #JMP
-code[0b10][JMP] = '{0:0{1}X}'.format(IO | J, 4)
+code[2][JMP] = to_hex(IO | J)
 
 #HLT
-code[0b10][HLT] = '{0:0{1}X}'.format(H, 4)
+code[2][HLT] = to_hex(H)
 	
 #ADA
-code[0b10][ADA] = '{0:0{1}X}'.format(IO | MI, 4)
-code[0b11][ADA] = '{0:0{1}X}'.format(RO | BI, 4)
-code[0b100][ADA] = '{0:0{1}X}'.format(EO | AI, 4)
+code[2][ADA] = to_hex(IO | MI)
+code[3][ADA] = to_hex(RO | BI)
+code[4][ADA] = to_hex(EO | AI)
 
 #SBA
-code[0b10][SBA] = '{0:0{1}X}'.format(IO | MI, 4)
-code[0b11][SBA] = '{0:0{1}X}'.format(RO | BI, 4)
-code[0b100][SBA] = '{0:0{1}X}'.format(S | EO | AI, 4)
+code[2][SBA] = to_hex(IO | MI)
+code[3][SBA] = to_hex(RO | BI)
+code[4][SBA] = to_hex(S | EO | AI)
  
 #STA
-code[0b10][STA] = '{0:0{1}X}'.format(IO | MI, 4)
-code[0b11][STA] = '{0:0{1}X}'.format(AO | RI, 4)
+code[2][STA] = to_hex(IO | MI)
+code[3][STA] = to_hex(AO | RI)
 
-c = 0
-for i in code:
-	for j in i:
-		if (c == 15):		
-			rom += f"{j}" + "\n"
-			c = 0
+for t_step in range(0b0, 0b10000):
+	print("t_step: ", t_step, end=" ")
+	for opcode in range(0b0, 0b100000000):
+		print(code[t_step][opcode], end=", ")
+		rom += f"{code[t_step][opcode]}"
+		if (opcode != 0b11111111):
+			rom += " "
 		else:
-			rom += f"{j}" + " "
-			c += 1
+			rom += "\n"
+	print()
 
-
-print(rom)
+#print(rom)
 
 f = open('ctrl_logic.bin', 'w')
 f.write(rom)

@@ -1,6 +1,7 @@
 import sys
 
 input_file = sys.argv[1]
+size = int(sys.argv[2])
 
 opcodes = {
 	'NOP' : 0b0000, # No operation
@@ -14,16 +15,23 @@ opcodes = {
 	'STA' : 0b1000  # Store value of A register to provided memory address
 }
 
-code = ['{0:0{1}X}'.format(0b0,4)] * 16
+code = ['{0:0{1}X}'.format(0b0,4) for i in range(size)]
 s = "v2.0 raw\n"
 
 f = open(input_file, 'r')
 add = 0
 for line in f:
 	op = line.split()[0]
-	opd = line.split()[1]
 	op = opcodes[op]
-	word = '{0:0{1}X}'.format((op << 4) ^ int(opd,16), 4)
+	op = op << 8
+	
+	opd = line.split()[1]
+	opd = int(opd, 16)
+
+	word = bin(op ^ opd)
+	word = word[2:]
+	word = hex(int(word,2))
+	word = word[2:].rjust(4,'0')
 	code[add] = word
 	add += 1
 f.close()
