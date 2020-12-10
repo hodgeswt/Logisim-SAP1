@@ -1,15 +1,16 @@
 
 rom = "v2.0 raw\n"
 
-code = [['0000' for i in range(0b100000000)] for j in range(0b10000)]
+code = [['00000000' for i in range(0b100000000)] for j in range(0b10000)]
 
 # Address: 0000 00000000
 #          code[step][op]
 #		   step op
 
 def to_hex(w):
-	return hex(int(bin(w),2))[2:].rjust(4,'0')
+	return hex(int(bin(w),2))[2:].rjust(8,'0')
 
+BO  = 0b10000000000000000
 J   = 0b01000000000000000
 CE  = 0b00100000000000000
 CO  = 0b00010000000000000
@@ -36,6 +37,11 @@ HLT = 0b0101
 ADA = 0b0110
 SBA = 0b0111
 STA = 0b1000
+LDB = 0b1001
+BOT = 0b1010
+ADB = 0b1011
+SBB = 0b1100
+STB = 0b1101
 
 code[0b0000] = [to_hex(CO|MI)] * 0b100000000
 code[0b0001] = [to_hex(RO|II|CE)] * 0b100000000
@@ -69,6 +75,27 @@ code[4][SBA] = to_hex(S | EO | AI)
 #STA
 code[2][STA] = to_hex(IO | MI)
 code[3][STA] = to_hex(AO | RI)
+
+#LDB
+code[0b0010][LDB] = to_hex(IO | MI)
+code[0b0011][LDB] = to_hex(RO | BI)
+
+#BOT
+code[2][BOT] = to_hex(BO | OI)
+
+#ADB
+code[2][ADB] = to_hex(IO | MI)
+code[3][ADB] = to_hex(RO | AI)
+code[4][ADB] = to_hex(EO | BI)
+
+#SBB
+code[2][SBB] = to_hex(IO | MI)
+code[3][SBB] = to_hex(RO | AI)
+code[4][SBB] = to_hex(S | EO | BI)
+
+#STB
+code[2][STA] = to_hex(IO | MI)
+code[3][STA] = to_hex(BO | RI)
 
 for t_step in range(0b0, 0b10000):
 	print("t_step: ", t_step, end=" ")

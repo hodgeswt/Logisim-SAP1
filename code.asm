@@ -1,3 +1,4 @@
-LDA ff
-AOT 0
-HLT 0
+LDB ff
+ADB fe
+BOT 00
+HLT 00
