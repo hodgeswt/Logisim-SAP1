@@ -1,3 +1,15 @@
+'''
+	Assembler for WH-01 Processor
+	Opcodes are defined below
+
+	Other operands:
+		# a v // stores value v at address a
+		: xxx // Does a comment. 
+		O a   // Starts code at the provided address
+	Comments are valid at the end of any completed line
+		or at the start of a line, if preceded by ;
+'''
+
 import sys
 
 input_file = sys.argv[1]
@@ -26,19 +38,31 @@ s = "v2.0 raw\n"
 f = open(input_file, 'r')
 add = 0
 for line in f:
-	op = line.split()[0]
-	op = opcodes[op]
-	op = op << 8
-	
-	opd = line.split()[1]
-	opd = int(opd, 16)
+	if (line[0] == ';'): # Ignore comments
+		pass			 # Comments at ends of lines shoul
+						 # be ignored by default
 
-	word = bin(op ^ opd)
-	word = word[2:]
-	word = hex(int(word,2))
-	word = word[2:].rjust(4,'0')
-	code[add] = word
-	add += 1
+	elif (line[0] == ':'): # Store value at proper address
+		add += int(line.split()[1], 16)
+	else:
+		op = line.split()[0]
+		if (op == "#"): # If setting a memory value
+			a = line.split()[1] # address 
+			v = line.split()[2] # value
+			code[int(a, 16)] = v # process add as hex
+		else:
+			op = opcodes[op]
+			op = op << 8
+			
+			opd = line.split()[1]
+			opd = int(opd, 16)
+		
+			word = bin(op ^ opd)
+			word = word[2:]
+			word = hex(int(word,2))
+			word = word[2:].rjust(4,'0')
+			code[add] = word
+			add += 1
 f.close()
 
 for w in code:
