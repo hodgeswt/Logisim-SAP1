@@ -11,7 +11,7 @@
 LDA ff
 LDB fe
 UFR 00
-BEQ 06
+BNE 06
 ; If A and B are not equal, do this:
 LDA fd
 JMP 07

@@ -52,7 +52,7 @@ for line in f:
 		if (op == "#"): # If setting a memory value
 			a = line.split()[1] # address 
 			v = line.split()[2] # value
-			code[int(a, 16)] = v # process add as hex
+			code[int(a, 16)] = v.rjust(4,'0') # process add as hex, make val 4 digits
 		else:
 			op = opcodes[op]
 			op = op << 8
@@ -68,9 +68,14 @@ for line in f:
 			add += 1
 f.close()
 
+c = 0
 for w in code:
-	s += w + " "	
-
+	if (c == 15):
+		s += w + "\n"
+		c = 0	
+	else:
+		s += w + " "
+		c += 1
 print(s)
 f = open('out.bin', 'w')
 f.write(s)
