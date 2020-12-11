@@ -32,7 +32,8 @@ opcodes = {
  	'STB' : 0b1101, # Store B at indicated memory address
 	'BEQ' : 0b1110, # Jumps to provided memory address if the equal flag is set
 	'BNE' : 0b1111, # Jumps to provided memory address if the equal flag was not set
-	'UFR' : 0b10000 # Latches outputs from ALU to the flags register
+	'UFR' : 0b10000,# Latches outputs from ALU to the flags register
+	'BZO' : 0b10001 # Branches if the ALU output == 0
 }
 
 code = ['{0:0{1}X}'.format(0b0,4) for i in range(size)]

@@ -1,21 +1,21 @@
 : 0 ; Start at address 0
 ;
 ; Set memory addresses ff and fe
-# ff f0
-# fe 0f
-; Set fd and fc
-# fd 00
-# fc 01
+# ff ff
+# fe ff
+; Set output addresses
+# fd 01 ; to display if sum == 0
+# fc 02 ; to display if sum != 0
 ;
 ; Add values and output
-LDA ff
-LDB fe
-UFR 00
-BNE 06
-; If A and B are not equal, do this:
-LDA fd
-JMP 07
+LDA ff ; #0
+LDB fe ; #1
+UFR 00 ; #2
+BZO 06 ; #3
+; If A + B != 0, do this:
+LDA fc ; #4
+JMP 07 ; #5
 ; Else, do this:
-LDA fc
-AOT 00
-HLT 00
+LDA fd ; #6
+AOT 00 ; #7
+HLT 00 ; #8
