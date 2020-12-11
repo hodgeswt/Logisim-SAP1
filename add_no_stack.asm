@@ -6,8 +6,6 @@
 # fd 0f
 LDA ff ; #0
 LDB fe ; #1
-PHB 00 ; #2
-ADA fd ; #3
-PLB 00 ; #4
-BOT 00 ; #5
-HLT 00 ; #6
+ADA fd ; #2
+BOT 00 ; #3
+HLT 00 ; #4
