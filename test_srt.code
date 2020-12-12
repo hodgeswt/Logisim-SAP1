@@ -1,14 +1,19 @@
 : 0
 # ff 42
-# fe 41
-# fd 01 ; EQUAL
-# fc 10 ; NOT EQUAL
+# fe 00
+# fd 01
+# fc 03
 LDA ff
-LT fe
-UFR 00
-BEQ 06
-LDA fc
-JMP 07
-LDA fd
-AOT 00
+JST 04
+BOT 00 ; PRINT 42
 HLT 00
+PHA 00
+LDA fe ; A = 0
+ADA fd ; A += 1
+LT fc  ; TMP = 3
+UFR 00 ; update flags
+BNE 06 ; If A != TMP, JMP -> 6
+STA fb
+PLA 00
+ATB 00
+RST 00

@@ -37,7 +37,7 @@ opcodes = {
 	'PHA' : 0b10010,# Pushes A value onto stack
 	'PLA' : 0b10011,# Pulls A value off of stack
 	'JST' : 0b10100,# Jumps to provided address and stores current address on stack
-	'RST' : 0b10101,# Jumps to value on stack and increments counter by operand (RST 01 pops stack, adds one, and jumps)
+	'RST' : 0b10101,# Jumps to value on stack. Pass 00 as argument
 	'BTA' : 0b10110,# Move B register to A register
  	'CTA' : 0b10111,# Move C register to A register
  	'ATB' : 0b11000,# Move A register to B register

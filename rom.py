@@ -100,12 +100,14 @@ code[2][HLT] = to_hex(H)
 #ADA
 code[2][ADA] = to_hex(IO | MI)
 code[3][ADA] = to_hex(RO | TI)
-code[4][ADA] = to_hex(EO | AI | FI)
+code[4][ADA] = to_hex(FI)
+code[5][ADA] = to_hex(EO | AI)
 
 #SBA
 code[2][SBA] = to_hex(IO | MI)
 code[3][SBA] = to_hex(RO | TI)
-code[4][SBA] = to_hex(S | EO | AI | FI)
+code[4][SBA] = to_hex(FI)
+code[5][SBA] = to_hex(S | EO | AI)
  
 #STA
 code[2][STA] = to_hex(IO | MI)
@@ -143,13 +145,14 @@ code[2][PLA] = to_hex(SO | AI)
 code[3][PLA] = to_hex(SE)
 
 #JST
-code[2][JST] = to_hex(CO | SID | SE | SI)
-code[3][JST] = to_hex(IO | J)
+code[2][JST] = to_hex(SID | SE)
+code[3][JST] = to_hex(CO | SI)
+code[4][JST] = to_hex(IO | J)
 
 #RST
 code[2][RST] = to_hex(SO | AI)
 code[3][RST] = to_hex(IO | TI)
-code[4][RST] = to_hex(SE | J)
+code[4][RST] = to_hex(SE | EO | J)
 
 #LDC
 code[2][LDC] = to_hex(IO | MI)

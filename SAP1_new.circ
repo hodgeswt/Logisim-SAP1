@@ -769,6 +769,14 @@ end TCL_Generic;
     <comp lib="0" loc="(2360,710)" name="Tunnel">
       <a name="label" val="LF"/>
     </comp>
+    <comp lib="0" loc="(2480,1480)" name="Probe">
+      <a name="facing" val="west"/>
+      <a name="label" val="SV"/>
+    </comp>
+    <comp lib="0" loc="(2480,1530)" name="Probe">
+      <a name="facing" val="west"/>
+      <a name="label" val="SP"/>
+    </comp>
     <comp lib="0" loc="(270,430)" name="Pull Resistor">
       <a name="facing" val="east"/>
     </comp>
@@ -1087,10 +1095,11 @@ end TCL_Generic;
       <a name="contents">addr/data: 12 32
 256*3000 256*4300 0 1080 204 24 8080 8
 4*1080 10004 1080 40000004 0 40080 400080 20000
-800080 a000000 1000040 e002000 1000040 10040 2040 30
+800080 a000000 1000040 a000000 1000040 10040 2040 30
 20000020 1080 230*0 240 4*0 10000200 10000200 10400
-210 0 20000200 6*0 4000020 2000000 8080 10000080
-4*0 10000200 235*0 20041 20043 13*0 2008000
+210 0 20000200 6*0 4000020 2000000 4002000 10000080
+4*0 10000200 235*0 20000 20000 12*0 8080 2008001
+240*0 41 43
 </a>
       <a name="dataWidth" val="32"/>
       <a name="labelvisible" val="true"/>
@@ -1448,6 +1457,8 @@ end TCL_Generic;
     <wire from="(2200,1920)" to="(2200,2020)"/>
     <wire from="(2220,1960)" to="(2220,2020)"/>
     <wire from="(2240,1420)" to="(2340,1420)"/>
+    <wire from="(2240,1440)" to="(2420,1440)"/>
+    <wire from="(2240,1460)" to="(2350,1460)"/>
     <wire from="(2240,530)" to="(2240,570)"/>
     <wire from="(2240,530)" to="(2360,530)"/>
     <wire from="(2240,590)" to="(2250,590)"/>
@@ -1456,12 +1467,16 @@ end TCL_Generic;
     <wire from="(2240,650)" to="(2360,650)"/>
     <wire from="(2240,670)" to="(2350,670)"/>
     <wire from="(2240,690)" to="(2350,690)"/>
+    <wire from="(2350,1460)" to="(2350,1530)"/>
+    <wire from="(2350,1530)" to="(2480,1530)"/>
     <wire from="(2350,620)" to="(2350,630)"/>
     <wire from="(2350,620)" to="(2360,620)"/>
     <wire from="(2350,670)" to="(2350,680)"/>
     <wire from="(2350,680)" to="(2360,680)"/>
     <wire from="(2350,690)" to="(2350,710)"/>
     <wire from="(2350,710)" to="(2360,710)"/>
+    <wire from="(2420,1440)" to="(2420,1480)"/>
+    <wire from="(2420,1480)" to="(2480,1480)"/>
     <wire from="(270,430)" to="(300,430)"/>
     <wire from="(280,290)" to="(280,410)"/>
     <wire from="(280,410)" to="(300,410)"/>
@@ -2582,6 +2597,18 @@ end TCL_Generic;
       <a name="output" val="true"/>
       <a name="width" val="16"/>
     </comp>
+    <comp lib="0" loc="(850,660)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="SO1"/>
+      <a name="output" val="true"/>
+      <a name="width" val="16"/>
+    </comp>
+    <comp lib="0" loc="(860,740)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="label" val="SP"/>
+      <a name="output" val="true"/>
+      <a name="width" val="8"/>
+    </comp>
     <comp lib="1" loc="(720,550)" name="Controlled Buffer">
       <a name="width" val="16"/>
     </comp>
@@ -2613,9 +2640,16 @@ end TCL_Generic;
     <wire from="(320,500)" to="(320,510)"/>
     <wire from="(330,230)" to="(330,240)"/>
     <wire from="(520,280)" to="(530,280)"/>
-    <wire from="(530,280)" to="(530,450)"/>
-    <wire from="(560,550)" to="(700,550)"/>
+    <wire from="(530,280)" to="(530,300)"/>
+    <wire from="(530,300)" to="(530,450)"/>
+    <wire from="(530,300)" to="(780,300)"/>
+    <wire from="(560,550)" to="(620,550)"/>
+    <wire from="(620,550)" to="(620,660)"/>
+    <wire from="(620,550)" to="(700,550)"/>
+    <wire from="(620,660)" to="(850,660)"/>
     <wire from="(710,560)" to="(710,600)"/>
     <wire from="(720,550)" to="(850,550)"/>
+    <wire from="(780,300)" to="(780,740)"/>
+    <wire from="(780,740)" to="(860,740)"/>
   </circuit>
 </project>
