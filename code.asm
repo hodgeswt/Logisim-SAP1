@@ -1,22 +1,30 @@
-: 0 ; Start at address 0
-;
-; Set memory values
-# ff 42
-# fd 02
-# fc 08
-JMP 09
-PHA 00
-LDA 00
-ADA fd
-LT fc
-BNE 03
-ATB 00
-PLA 00
-RST 01
-LDA ff
-JST 01
-AOT 00 ; PRINT 42
-NOP 00
-NOP 00
-BOT 00 ; PRINT 08
+: 0
+# ff ch
+# fe ce
+# fd cl
+# fc cl
+# fb co
+# fa c,
+# f9 c 
+# f8 cw
+# f7 co
+# f6 cr
+# f5 cl
+# f4 cd
+# f3 c!
+# f2 ff
+# f1 f2
+# f0 01
+LDB f2 ; Load ff into B
+LBA 00 ; Load A with value at mem address in B
+ATO 00 ; Print A
+;;;; Subtract 1 from B
+BTA 00 ; B -> A
+SBA f0 ; A -= 1
+ATB 00 ; A -> B
+LT f1
+UFR 00
+BNE 01
+LBA 00
+ATO 00
 HLT 00

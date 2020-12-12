@@ -12,6 +12,7 @@ def to_hex(w):
 
 # Control flags
 
+TRO = 0b10000000000000000000000000000000
 CRO = 0b1000000000000000000000000000000
 CI  = 0b100000000000000000000000000000
 TI  = 0b10000000000000000000000000000
@@ -21,9 +22,9 @@ SE  = 0b0010000000000000000000000000
 SO  = 0b0001000000000000000000000000
 BZ  = 0b0000100000000000000000000000
 NE  = 0b0000010000000000000000000000
-BL  = 0b0000001000000000000000000000
-BG  = 0b0000000100000000000000000000
-BC  = 0b0000000010000000000000000000
+##  = 0b0000001000000000000000000000
+OTI = 0b0000000100000000000000000000
+##  = 0b0000000010000000000000000000
 BE  = 0b0000000001000000000000000000
 FI  = 0b0000000000100000000000000000
 BO  = 0b0000000000010000000000000000
@@ -72,6 +73,9 @@ CTA = 0b10111
 ATB = 0b11000
 ATC = 0b11001
 LT  = 0b11010
+ATO = 0b11011
+BTO = 0b11100
+LBA = 0b11101
 
 #
 # Establish instructions
@@ -90,6 +94,12 @@ code[2][ROT] = to_hex(RO | OI)
 
 #AOT
 code[2][AOT] = to_hex(AO | OI)
+
+#ATO
+code[2][ATO] = to_hex(AO | OTI)
+
+#BTO
+code[2][BTO] = to_hex(BO | OTI)
 
 #JMP
 code[2][JMP] = to_hex(IO | J)
@@ -150,9 +160,8 @@ code[3][JST] = to_hex(CO | SI)
 code[4][JST] = to_hex(IO | J)
 
 #RST
-code[2][RST] = to_hex(SO | AI)
-code[3][RST] = to_hex(IO | TI)
-code[4][RST] = to_hex(SE | EO | J)
+code[2][RST] = to_hex(SO | TI)
+code[4][RST] = to_hex(SE | TRO | J)
 
 #LDC
 code[2][LDC] = to_hex(IO | MI)
@@ -176,6 +185,10 @@ code[2][ATC] = to_hex(AO | CI)
 #LT
 code[2][LT] = to_hex(IO | MI)
 code[3][LT] = to_hex(RO | TI)
+
+#LBA
+code[2][LBA] = to_hex(BO | MI)
+code[3][LBA] = to_hex(RO | AI)
 
 for t_step in range(0b0, 0b10000):
 	print("t_step: ", t_step, end=" ")

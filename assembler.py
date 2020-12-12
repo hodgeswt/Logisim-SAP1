@@ -42,7 +42,10 @@ opcodes = {
  	'CTA' : 0b10111,# Move C register to A register
  	'ATB' : 0b11000,# Move A register to B register
  	'ATC' : 0b11001,# Move A register to C register
-	'LT'  : 0b11010 # Loads value at given address into TMP register
+	'LT'  : 0b11010,# Loads value at given address into TMP register
+	'ATO' : 0b11011,# Outputs A to Output Register 2
+ 	'BTO' : 0b11100,# Outputs B to Output Register 2
+	'LBA' : 0b11101 # Jumps to address in B register
 }
 
 code = ['{0:0{1}X}'.format(0b0,4) for i in range(size)]
@@ -62,7 +65,15 @@ for line in f:
 		if (op == "#"): # If setting a memory value
 			a = line.split()[1] # address 
 			v = line.split()[2] # value
-			code[int(a, 16)] = v.rjust(4,'0') # process add as hex, make val 4 digits
+			if (v[0] != 'c'):
+				code[int(a, 16)] = v.rjust(4,'0') # process add as hex, make val 4 digits
+			else:	
+				if (len(v) > 2):
+					raise ValueError("Character on line " + add + "must be one character")
+				elif (len(v) == 2):
+					code[int(a, 16)] = hex(ord(v[1:]))[2:].rjust(4,'0')
+				else:
+					code[int(a, 16)] = '0020' # space
 		else:
 			op = opcodes[op]
 			op = op << 8
