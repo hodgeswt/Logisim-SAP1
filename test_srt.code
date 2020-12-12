@@ -1,0 +1,14 @@
+: 0
+# ff 42
+# fe 41
+# fd 01 ; EQUAL
+# fc 10 ; NOT EQUAL
+LDA ff
+LT fe
+UFR 00
+BEQ 06
+LDA fc
+JMP 07
+LDA fd
+AOT 00
+HLT 00

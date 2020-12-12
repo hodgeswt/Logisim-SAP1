@@ -71,6 +71,7 @@ BTA = 0b10110
 CTA = 0b10111
 ATB = 0b11000
 ATC = 0b11001
+LT  = 0b11010
 
 #
 # Establish instructions
@@ -146,7 +147,9 @@ code[2][JST] = to_hex(CO | SID | SE | SI)
 code[3][JST] = to_hex(IO | J)
 
 #RST
-code[2][RST] = to_hex(SO | J | CE | SE)
+code[2][RST] = to_hex(SO | AI)
+code[3][RST] = to_hex(IO | TI)
+code[4][RST] = to_hex(SE | J)
 
 #LDC
 code[2][LDC] = to_hex(IO | MI)
@@ -167,6 +170,9 @@ code[2][ATB] = to_hex(AO | BI)
 #ATC
 code[2][ATC] = to_hex(AO | CI)
 
+#LT
+code[2][LT] = to_hex(IO | MI)
+code[3][LT] = to_hex(RO | TI)
 
 for t_step in range(0b0, 0b10000):
 	print("t_step: ", t_step, end=" ")
