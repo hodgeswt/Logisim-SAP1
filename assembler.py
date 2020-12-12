@@ -22,20 +22,26 @@ opcodes = {
 	'AOT' : 0b0011, # Output the value of the A register to the display
 	'JMP' : 0b0100, # Jump operation to line indicated by operand
 	'HLT' : 0b0101, # Halt execution
-	'ADA' : 0b0110, # Add value stored at memory address operand to the A register - Overwrites B register
-	'SBA' : 0b0111, # Subtract value stored at mem addrs operand to the A register - Overwrites B register
+	'ADA' : 0b0110, # Add value stored at memory address operand to the A register 
+	'SBA' : 0b0111, # Subtract value stored at mem addrs operand to the A register 
 	'STA' : 0b1000, # Store value of A register to provided memory address
 	'LDB' : 0b1001, # Load B register with value stored at memory address operand
  	'BOT' : 0b1010, # Output value at B register to display
- 	'ADB' : 0b1011, # Add value at ram address to B register - Overwrites A register
- 	'SBB' : 0b1100, # Subtract value at ram address from B register - Overwrites A register
+ 	'LDC' : 0b1011, # Add value at ram address to B register - Overwrites A register
+ 	'COT' : 0b1100, # Subtract value at ram address from B register - Overwrites A register
  	'STB' : 0b1101, # Store B at indicated memory address
 	'BEQ' : 0b1110, # Jumps to provided memory address if the equal flag is set
 	'BNE' : 0b1111, # Jumps to provided memory address if the equal flag was not set
 	'UFR' : 0b10000,# Latches outputs from ALU to the flags register
 	'BZO' : 0b10001,# Branches if the ALU output == 0
-	'PHB' : 0b10010,# Pushes B value onto stack
-	'PLB' : 0b10011 # Pulls B value off of stack
+	'PHA' : 0b10010,# Pushes A value onto stack
+	'PLA' : 0b10011,# Pulls A value off of stack
+	'JST' : 0b10100,# Jumps to provided address and stores current address on stack
+	'RST' : 0b10101,# Jumps to value on stack and increments counter
+	'BTA' : 0b10110,# Move B register to A register
+ 	'CTA' : 0b10111,# Move C register to A register
+ 	'ATB' : 0b11000,# Move A register to B register
+ 	'ATC' : 0b11001 # Move A register to C register
 }
 
 code = ['{0:0{1}X}'.format(0b0,4) for i in range(size)]

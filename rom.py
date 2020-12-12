@@ -12,6 +12,9 @@ def to_hex(w):
 
 # Control flags
 
+CRO = 0b1000000000000000000000000000000
+CI  = 0b100000000000000000000000000000
+TI  = 0b10000000000000000000000000000
 SID = 0b1000000000000000000000000000
 SI  = 0b0100000000000000000000000000
 SE  = 0b0010000000000000000000000000
@@ -53,27 +56,33 @@ SBA = 0b0111
 STA = 0b1000
 LDB = 0b1001
 BOT = 0b1010
-ADB = 0b1011
-SBB = 0b1100
+LDC = 0b1011
+COT = 0b1100
 STB = 0b1101
 BEQ = 0b1110
 BNE = 0b1111
 UFR = 0b10000
 BZO = 0b10001
-PHB = 0b10010
-PLB = 0b10011
+PHA = 0b10010
+PLA = 0b10011
+JST = 0b10100
+RST = 0b10101
+BTA = 0b10110
+CTA = 0b10111
+ATB = 0b11000
+ATC = 0b11001
 
 #
 # Establish instructions
 #
 
 #Fetch
-code[0b0000] = [to_hex(CO|MI)] * 0b100000000
-code[0b0001] = [to_hex(RO|II|CE)] * 0b100000000
+code[0] = [to_hex(CO|MI)] * 0b100000000
+code[1] = [to_hex(RO|II|CE)] * 0b100000000
 	
 #LDA
-code[0b0010][LDA] = to_hex(IO | MI)
-code[0b0011][LDA] = to_hex(RO | AI) 
+code[2][LDA] = to_hex(IO | MI)
+code[3][LDA] = to_hex(RO | AI) 
 
 #ROT
 code[2][ROT] = to_hex(RO | OI)
@@ -89,12 +98,12 @@ code[2][HLT] = to_hex(H)
 	
 #ADA
 code[2][ADA] = to_hex(IO | MI)
-code[3][ADA] = to_hex(RO | BI)
+code[3][ADA] = to_hex(RO | TI)
 code[4][ADA] = to_hex(EO | AI | FI)
 
 #SBA
 code[2][SBA] = to_hex(IO | MI)
-code[3][SBA] = to_hex(RO | BI)
+code[3][SBA] = to_hex(RO | TI)
 code[4][SBA] = to_hex(S | EO | AI | FI)
  
 #STA
@@ -102,21 +111,11 @@ code[2][STA] = to_hex(IO | MI)
 code[3][STA] = to_hex(AO | RI)
 
 #LDB
-code[0b0010][LDB] = to_hex(IO | MI)
-code[0b0011][LDB] = to_hex(RO | BI)
+code[2][LDB] = to_hex(IO | MI)
+code[3][LDB] = to_hex(RO | BI)
 
 #BOT
 code[2][BOT] = to_hex(BO | OI)
-
-#ADB
-code[2][ADB] = to_hex(IO | MI)
-code[3][ADB] = to_hex(RO | AI)
-code[4][ADB] = to_hex(EO | BI | FI)
-
-#SBB
-code[2][SBB] = to_hex(IO | MI)
-code[3][SBB] = to_hex(RO | AI)
-code[4][SBB] = to_hex(S | EO | BI | FI)
 
 #STB
 code[2][STA] = to_hex(IO | MI)
@@ -134,13 +133,40 @@ code[2][UFR] = to_hex(FI)
 #BZO
 code[2][BZO] = to_hex(IO | BZ)
 
-#PHB
-code[2][PHB] = to_hex(SID | SE)
-code[3][PHB] = to_hex(BO | SI)
+#PHA
+code[2][PHA] = to_hex(SID | SE)
+code[3][PHA] = to_hex(AO | SI)
 
-#PLB
-code[2][PLB] = to_hex(SO | BI)
-code[3][PLB] = to_hex(SE)
+#PLA
+code[2][PLA] = to_hex(SO | AI)
+code[3][PLA] = to_hex(SE)
+
+#JST
+code[2][JST] = to_hex(CO | SID | SE | SI)
+code[3][JST] = to_hex(IO | J)
+
+#RST
+code[2][RST] = to_hex(SO | J | CE | SE)
+
+#LDC
+code[2][LDC] = to_hex(IO | MI)
+code[3][LDC] = to_hex(RO | CI)
+
+#COT
+code[2][COT] = to_hex(CRO | OI)
+
+#BTA
+code[2][BTA] = to_hex(BO | AI)
+
+#CTA
+code[2][CTA] = to_hex(CO | AI)
+
+#ATB
+code[2][ATB] = to_hex(AO | BI)
+
+#ATC
+code[2][ATC] = to_hex(AO | CI)
+
 
 for t_step in range(0b0, 0b10000):
 	print("t_step: ", t_step, end=" ")
