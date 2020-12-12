@@ -69,38 +69,38 @@
     <tool name="ROM">
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 8 8
-0 cf fa bf b1 3e cd 47
-c9 96 1e 12 68 a5 c8 59
-d4 dd 13 de 5f d4 a9 b2
-9f 25 25 40 14 da b1 58
-6c 87 1e 46 63 10 25 84
-3d fa 53 cd 60 10 a8 32
-5 f3 c9 38 9a 8b a7 c9
-48 ba 7a 25 bd 71 d4 3b
-97 73 2a 56 5f fa 3f 5
-2a 38 a5 94 fe ca 61 ea
-e5 44 40 a9 27 32 c3 9e
-ea 20 91 6a 0 3f 0 55
-fc 61 ac 72 6f b1 f4 ef
-1 45 a 63 70 85 75 5c
-de cc 16 73 2d 0 af 9
-3d 9b be 94 ef 7b 3b 4f
-b3 8 de b4 fb 4d 66 65
-18 29 45 8d f6 42 ab d0
-f3 ac 8 e6 a0 16 50 10
-25 85 7a 66 2c 34 2a 37
-48 38 86 ed bb d6 13 e
-6c a0 58 e7 2f 51 47 bb
-38 9c 52 35 a9 e7 da 6
-e6 f4 f1 11 ec 2 dc 29
-c1 20 f4 d3 f2 2c 18 6e
-6b 5e 46 9c 5 52 89 f2
-80 97 6e 9f d3 32 60 c5
-b6 38 8 50 f2 f0 29 bb
-14 b a3 c0 ae bf 27 a1
-69 74 8c 32 c9 a6 b e7
-c2 51 b6 60 7f 1e 4c 8a
-26 ce 73 f7 ea 15 20 9e
+0 5 db 42 4b 75 35 df
+27 69 4d 4d 71 e8 d1 20
+54 c6 e9 6e 5a ee c7 54
+e1 51 e9 a 81 c1 3d 52
+6d 6b 85 26 2f a0 52 f0
+88 d4 1d e1 8d d1 21 86
+fd 47 4c 8d b0 da cf ab
+d6 3 7d 3a a2 be de 29
+c1 a5 62 c6 d3 4a 9a 70
+ac 3c 3e 36 53 de e5 8
+7b 54 a3 f1 ed 68 b 55
+48 67 87 ae 9d da 8d c2
+14 6 2e 4e c5 92 e cd
+83 ba 6c a0 42 e2 99 c7
+27 9b 36 12 c2 2c 7e ff
+c6 61 3a 9a b2 c2 f3 14
+55 ba 8c b0 d2 10 6d 85
+96 79 f 24 9e 67 5e 29
+d6 61 4a a3 d0 1c ba 45
+e3 21 dc 43 ba a9 d ee
+1b 3e 8b a 88 bf 82 25
+75 ab 4b 82 5a 6c 6d 87
+70 fd 27 88 b0 ba 59 ca
+20 24 2a 2f e8 5e 93 46
+fe f1 cc 52 60 88 65 a0
+ab b7 55 a7 58 f6 15 44
+9e a3 0 52 e8 22 a9 e5
+84 af 40 f1 24 6f 39 40
+46 43 d1 c1 19 fc 38 6f
+aa 18 94 f7 70 e4 d7 dc
+1e b 4a b8 4a 8d e 5e
+79 3c 8a 1a 62 d0 40 5d
 </a>
     </tool>
   </lib>
@@ -198,10 +198,10 @@ end TCL_Generic;
     <tool lib="1" name="NOR Gate"/>
     <sep/>
     <tool lib="4" name="D Flip-Flop">
-      <a name="appearance" val="classic"/>
+      <a name="appearance" val="logisim_evolution"/>
     </tool>
     <tool lib="4" name="Register">
-      <a name="appearance" val="classic"/>
+      <a name="appearance" val="logisim_evolution"/>
     </tool>
   </toolbar>
   <circuit name="main">
@@ -1185,40 +1185,41 @@ end TCL_Generic;
 20000 20000 12*0 8080 82008000 240*0 41 43
 </a>
       <a name="dataWidth" val="32"/>
+      <a name="label" val="Control_Logic"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1000,1330)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@64f17efd"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@c2cf5fc"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1020,1550)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7b986122"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@39ef9135"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1060,1550)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@8d0806f"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4923fc9c"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(420,1710)" name="Button"/>
     <comp lib="5" loc="(560,340)" name="Button"/>
     <comp lib="5" loc="(770,760)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@2b6d28d8"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7dfc618f"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(780,1990)" name="Button">
       <a name="facing" val="west"/>
     </comp>
     <comp lib="5" loc="(810,760)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@4404bdde"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@1694e8d9"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(820,1770)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7c2d550d"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@5337b507"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(920,1140)" name="TTY"/>
     <comp lib="5" loc="(960,1330)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7072611f"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@52674e1"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="8" loc="(2120,1363)" name="Text">
