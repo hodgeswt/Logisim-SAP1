@@ -44,6 +44,11 @@
 	- ATO    : Output A to Output Register 2
 	- BTO    : Output B to Output Register 2
 	- LBA    : Loads A register with value at memory address stored in register B
+- Anything that takes no operand should receive operand value 00
+- To place a string in memory: `& [starting address] "contents of string"`
+	- String is written backwards in memory
+- Comments begin with ; and can occur on line of their own or at the end of a line (after op + operand)
+- To change the starting address, use `: [address]`
 
 # To assemble
 `python3 assembler.py [filename] 256`
