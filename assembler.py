@@ -11,6 +11,7 @@
 '''
 
 import sys
+import re
 
 input_file = sys.argv[1]
 size = int(sys.argv[2])
@@ -60,6 +61,12 @@ for line in f:
 
 	elif (line[0] == ':'): # Store value at proper address
 		add += int(line.split()[1], 16)
+	elif (line[0] == '&'):
+		a = int(line.split()[1],16)
+		l = re.findall(r'"(.*?)"',line)[0] 
+		for i in range(0, len(l)):
+			code[a] = hex(ord(l[i]))[2:].rjust(4,'0') 
+			a -= 1
 	else:
 		op = line.split()[0]
 		if (op == "#"): # If setting a memory value
