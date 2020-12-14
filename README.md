@@ -53,9 +53,11 @@
 - Words can replace address operands. 
 	- Words must be defined on their own line, as such: `.word`
 	- When given as an address, the assembler replaces it with the address for the line immediately following it:
-    ```.word
+    ```
+	.word
 	LDA ff
-	JMP .word```	
+	JMP .word
+	```	
 	will `JMP` to the line containing `LDA ff`
 	- Words must be defined before they're used.
 
