@@ -15,6 +15,7 @@ import re
 
 input_file = sys.argv[1]
 size = int(sys.argv[2])
+output_file = sys.argv[3]
 
 opcodes = {
 	'NOP' : 0b0000, # No operation
@@ -115,6 +116,6 @@ for w in code:
 		s += w + " "
 		c += 1
 print(s)
-f = open('out.bin', 'w')
+f = open(output_file, 'w')
 f.write(s)
 f.close()

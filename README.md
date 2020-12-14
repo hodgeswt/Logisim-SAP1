@@ -62,5 +62,4 @@
 	- Words must be defined before they're used.
 
 # To assemble
-`python3 assembler.py [filename] 256`
-	- Outputs file to out.bin 
+`python3 assembler.py [filename] 256 [output filename]`
