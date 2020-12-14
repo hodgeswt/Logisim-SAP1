@@ -131,8 +131,8 @@ code[3][LDB] = to_hex(RO | BI)
 code[2][BOT] = to_hex(BO | OI)
 
 #STB
-code[2][STA] = to_hex(IO | MI)
-code[3][STA] = to_hex(BO | RI)
+code[2][STB] = to_hex(IO | MI)
+code[3][STB] = to_hex(BO | RI)
 
 #BEQ
 code[2][BEQ] = to_hex(IO | BE)

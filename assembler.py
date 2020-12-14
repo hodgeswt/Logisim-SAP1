@@ -54,6 +54,7 @@ s = "v2.0 raw\n"
 
 f = open(input_file, 'r')
 add = 0
+var = {}
 for line in f:
 	if (line[0] == ';'): # Ignore comments
 		pass			 # Comments at ends of lines shoul
@@ -67,12 +68,15 @@ for line in f:
 		for i in range(0, len(l)):
 			code[a] = hex(ord(l[i]))[2:].rjust(4,'0') 
 			a -= 1
+	elif (line[0] == "."):
+		v = line[1:-1]
+		var[v] = add
 	else:
 		op = line.split()[0]
 		if (op == "#"): # If setting a memory value
 			a = line.split()[1] # address 
 			v = line.split()[2] # value
-			if (v[0] != 'c'):
+			if (v[0] != '%'):
 				code[int(a, 16)] = v.rjust(4,'0') # process add as hex, make val 4 digits
 			else:	
 				if (len(v) > 2):
@@ -86,7 +90,13 @@ for line in f:
 			op = op << 8
 			
 			opd = line.split()[1]
-			opd = int(opd, 16)
+			if (opd[0] == "."):
+				try:
+					opd = var[opd[1:]]
+				except:
+					raise Exception("Variable not yet declared")
+			else:
+				opd = int(opd, 16)
 		
 			word = bin(op ^ opd)
 			word = word[2:]

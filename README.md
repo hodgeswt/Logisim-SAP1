@@ -49,6 +49,15 @@
 	- String is written backwards in memory
 - Comments begin with ; and can occur on line of their own or at the end of a line (after op + operand)
 - To change the starting address, use `: [address]`
+- To place an ASCII character in memory, use the format `# [address] %[character]`
+- Words can replace address operands. 
+	- Words must be defined on their own line, as such: `.word`
+	- When given as an address, the assembler replaces it with the address for the line immediately following it:
+    `.word
+	LDA ff
+	JMP .word`	
+	will `JMP` to the line containing `LDA ff`
+	- Words must be defined before they're used.
 
 # To assemble
 `python3 assembler.py [filename] 256`

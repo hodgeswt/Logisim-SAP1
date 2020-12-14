@@ -1,17 +1,28 @@
 : 0
-& ff "Greetings from an easy-to-use assembler" 
-# d7 d8
-# d6 ff
-# d5 01
-LDB d6
+& ff "UwU"
+# fc 01
+# fb ff
+# fa 03
+# f9 00
+JMP 08
+.print
 LBA 00
 ATO 00
+RST 00
+.sbb
 BTA 00
-SBA d5 ; Subtract 1 from A
-LT d7
-UFR 00
+SBA fc ; A -= 1
 ATB 00
-BNE 01
-LBA 00
-ATO 00
+RST 00
+;; MAIN
+LDB fb
+.loop
+JST .print
+JST .sbb
+LDA f9
+ADA fc
+STA f9
+LT fa
+UFR 00
+BNE .loop
 HLT 00
