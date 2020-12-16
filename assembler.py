@@ -47,7 +47,11 @@ opcodes = {
 	'LT'  : 0b11010,# Loads value at given address into TMP register
 	'ATO' : 0b11011,# Outputs A to Output Register 2
  	'BTO' : 0b11100,# Outputs B to Output Register 2
-	'ATX' : 0b11111# Outputs A to Serial Out	
+	'ADI' : 0b11101,# Address Register in
+	'ATX' : 0b11111,# Outputs A to Serial Out
+	'ARI' : 0b100000, # Address register increment	
+	'ARD' : 0b100001, # Address register decrement
+	'AIA' : 0b100010  # Stores value at address register into A register
 }
 
 code = ['{0:0{1}X}'.format(0b0,6) for i in range(size)]
