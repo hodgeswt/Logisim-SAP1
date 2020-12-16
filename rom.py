@@ -11,7 +11,8 @@ def to_hex(w):
 	return hex(int(bin(w),2))[2:].rjust(8,'0')
 
 # Control flags
-
+ADRO = 0b1000000000000000000000000000000000
+ADRI = 0b100000000000000000000000000000000
 TRO = 0b10000000000000000000000000000000
 CRO = 0b1000000000000000000000000000000
 CI  = 0b100000000000000000000000000000
@@ -75,7 +76,7 @@ ATC = 0b11001
 LT  = 0b11010
 ATO = 0b11011
 BTO = 0b11100
-LBA = 0b11101
+AIA = 0b11101
 ATX = 0b11111
 
 #
@@ -187,9 +188,9 @@ code[2][ATC] = to_hex(AO | CI)
 code[2][LT] = to_hex(IO | MI)
 code[3][LT] = to_hex(RO | TI)
 
-#LBA
-code[2][LBA] = to_hex(BO | MI)
-code[3][LBA] = to_hex(RO | AI)
+#AIA
+code[2][AIA] = to_hex(ADRO | MI)
+code[3][AIA] = to_hex(RO | AI)
 
 #ATX
 code[2][ATX] = to_hex(AO | SOI)

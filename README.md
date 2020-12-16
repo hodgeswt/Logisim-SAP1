@@ -48,7 +48,7 @@
 	- LT  hh : Loads TMP register with value at address
 	- ATO    : Output A to Output Register 2
 	- BTO    : Output B to Output Register 2
-	- LBA    : Loads A register with value at memory address stored in register B
+	- AIA    : Loads A register with value at memory address stored in the address register
 - Anything that takes no operand should receive operand value 00
 - To place a string in memory: `& [starting address] "contents of string"`
 	- String is written backwards in memory

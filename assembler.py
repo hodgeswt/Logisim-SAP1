@@ -47,7 +47,7 @@ opcodes = {
 	'LT'  : 0b11010,# Loads value at given address into TMP register
 	'ATO' : 0b11011,# Outputs A to Output Register 2
  	'BTO' : 0b11100,# Outputs B to Output Register 2
-	'LBA' : 0b11101,# Jumps to address in B register
+	'AIA' : 0b11101,# Loads A register with value at address in Address Register
 	'ATX' : 0b11111 # Outputs A to Serial Out
 }
 
@@ -66,7 +66,11 @@ for line in f:
 	elif (line[0] == ':'): # Store value at proper address
 		add += int(line.split()[1], 16)
 	elif (line[0] == '&'):
-		a = int(line.split()[1],16)
+		if (line.split()[1][0] == "_"):
+			a = pointers[line.split()[1]]
+		else:
+			a = line.split()[1]
+		a = int(a,16)
 		l = re.findall(r'"(.*?)"',line)[0] 
 		for i in range(0, len(l)):
 			code[a] = hex(ord(l[i]))[2:].rjust(6,'0') 
