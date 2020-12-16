@@ -108,6 +108,8 @@ for line in f:
 			add += 1
 f.close()
 
+empty_line = "000000 000000 000000 000000 000000 000000 000000 000000 000000 000000 000000 000000 000000 000000 000000 000000"
+
 c = 0
 for w in code:
 	if (c == 15):
@@ -116,7 +118,20 @@ for w in code:
 	else:
 		s += w + " "
 		c += 1
-print(s)
+last_output = ""
+for line in s.splitlines():
+	if line != empty_line:
+		if (last_output == "."):
+			print()
+			print(line)
+			last_output = ""
+		else:
+			print(line)
+			last_output = ""
+	else:
+		last_output = "."
+		print(".", end="")
+
 f = open(output_file, 'w')
 f.write(s)
 f.close()
