@@ -47,10 +47,11 @@ opcodes = {
 	'LT'  : 0b11010,# Loads value at given address into TMP register
 	'ATO' : 0b11011,# Outputs A to Output Register 2
  	'BTO' : 0b11100,# Outputs B to Output Register 2
-	'LBA' : 0b11101 # Jumps to address in B register
+	'LBA' : 0b11101,# Jumps to address in B register
+	'ATX' : 0b11111 # Outputs A to Serial Out
 }
 
-code = ['{0:0{1}X}'.format(0b0,4) for i in range(size)]
+code = ['{0:0{1}X}'.format(0b0,6) for i in range(size)]
 s = "v2.0 raw\n"
 
 f = open(input_file, 'r')
@@ -67,7 +68,7 @@ for line in f:
 		a = int(line.split()[1],16)
 		l = re.findall(r'"(.*?)"',line)[0] 
 		for i in range(0, len(l)):
-			code[a] = hex(ord(l[i]))[2:].rjust(4,'0') 
+			code[a] = hex(ord(l[i]))[2:].rjust(6,'0') 
 			a -= 1
 	elif (line[0] == "."):
 		v = line[1:-1]
@@ -78,17 +79,17 @@ for line in f:
 			a = line.split()[1] # address 
 			v = line.split()[2] # value
 			if (v[0] != '%'):
-				code[int(a, 16)] = v.rjust(4,'0') # process add as hex, make val 4 digits
+				code[int(a, 16)] = v.rjust(6,'0') # process add as hex, make val 4 digits
 			else:	
 				if (len(v) > 2):
 					raise ValueError("Character on line " + add + "must be one character")
 				elif (len(v) == 2):
-					code[int(a, 16)] = hex(ord(v[1:]))[2:].rjust(4,'0')
+					code[int(a, 16)] = hex(ord(v[1:]))[2:].rjust(6,'0')
 				else:
-					code[int(a, 16)] = '0020' # space
+					code[int(a, 16)] = '000020' # space
 		else:
 			op = opcodes[op]
-			op = op << 8
+			op = op << 16
 			
 			opd = line.split()[1]
 			if (opd[0] == "."):
@@ -102,7 +103,7 @@ for line in f:
 			word = bin(op ^ opd)
 			word = word[2:]
 			word = hex(int(word,2))
-			word = word[2:].rjust(4,'0')
+			word = word[2:].rjust(6,'0')
 			code[add] = word
 			add += 1
 f.close()
