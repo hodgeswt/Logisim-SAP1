@@ -49,6 +49,9 @@
 	- ATO    : Output A to Output Register 2
 	- BTO    : Output B to Output Register 2
 	- AIA    : Loads A register with value at memory address stored in the address register
+	- ADI    : Loads value into address register
+	- ARI    : Increments value in address register
+	- ARD    : Decrements value in address register
 - Anything that takes no operand should receive operand value 00
 - To place a string in memory: `& [starting address] "contents of string"`
 	- String is written backwards in memory
