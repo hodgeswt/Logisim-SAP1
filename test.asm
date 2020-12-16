@@ -1,9 +1,17 @@
 : 0
-_string ffff
-_start fffe
-# _string %W
-# _start ffff
-ARI _start
-AIA 0000
-ATO 0000
-HLT 0000
+_a ffff
+# _a 42
+_b fffe
+# _b ff
+JMP 06
+.bot
+PHA 00
+LDA _b
+AOT 00
+PLA 00
+RST 00
+;;; MAIN
+LDA _a
+JST .bot
+AOT 00
+HLT 00
