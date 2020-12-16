@@ -78,6 +78,7 @@ ATO = 0b11011
 BTO = 0b11100
 AIA = 0b11101
 ATX = 0b11111
+ARI = 0b100000
 
 #
 # Establish instructions
@@ -195,6 +196,10 @@ code[3][AIA] = to_hex(RO | AI)
 #ATX
 code[2][ATX] = to_hex(AO | SOI)
 code[3][ATX] = to_hex(TX)
+
+#ARI
+code[2][ARI] = to_hex(IO | MI)
+code[3][ARI] = to_hex(RO | ADRI)
 
 for t_step in range(0b0, 0b10000):
 	print("t_step: ", t_step, end=" ")
