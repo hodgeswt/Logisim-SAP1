@@ -12,6 +12,11 @@
 - Return to main circuit
 - Enable ticks
 
+# General Info
+- 8-bit storage
+- 16-bit address (64K RAM)
+- All operands are 16 bits (4 hex characters) 
+
 # To program
 - Opcode list:
 	- NOP : no operation
@@ -50,16 +55,23 @@
 - Comments begin with ; and can occur on line of their own or at the end of a line (after op + operand)
 - To change the starting address, use `: [address]`
 - To place an ASCII character in memory, use the format `# [address] %[character]`
-- Words can replace address operands. 
+- Words are dynamic and can replace address operands. 
 	- Words must be defined on their own line, as such: `.word`
 	- When given as an address, the assembler replaces it with the address for the line immediately following it:
     ```
 	.word
-	LDA ff
+	LDA ffff
 	JMP .word
 	```	
 	will `JMP` to the line containing `LDA ff`
 	- Words must be defined before they're used.
-
+- Pointers are given specific address values: `_[pointer] [address]`
+	- They must begin with an `_`.
+	- They are similar to words, but are not dynamic: the user must provide the address
+	- They can replace address operands
+	```
+	_start ffff
+	LDA _start
+	``` 
 # To assemble
 `python3 assembler.py [filename] 256 [output filename]`

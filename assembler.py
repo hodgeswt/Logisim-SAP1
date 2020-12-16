@@ -57,6 +57,7 @@ s = "v2.0 raw\n"
 f = open(input_file, 'r')
 add = 0
 var = {}
+pointers = {}
 for line in f:
 	if (line[0] == ';'): # Ignore comments
 		pass			 # Comments at ends of lines shoul
@@ -73,10 +74,14 @@ for line in f:
 	elif (line[0] == "."):
 		v = line[1:-1]
 		var[v] = add
+	elif (line[0] == "_"):
+		pointers[line.split()[0]] = line.split()[1]
 	else:
 		op = line.split()[0]
 		if (op == "#"): # If setting a memory value
 			a = line.split()[1] # address 
+			if (a[0] == "_"):
+				a = pointers[a]
 			v = line.split()[2] # value
 			if (v[0] != '%'):
 				code[int(a, 16)] = v.rjust(6,'0') # process add as hex, make val 4 digits
@@ -95,6 +100,11 @@ for line in f:
 			if (opd[0] == "."):
 				try:
 					opd = var[opd[1:]]
+				except:
+					raise Exception("Variable not yet declared")
+			elif (opd[0] == "_"):
+				try:
+					opd = int(pointers[opd],16)
 				except:
 					raise Exception("Variable not yet declared")
 			else:
