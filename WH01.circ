@@ -1528,30 +1528,30 @@ end TCL_Generic;
     </comp>
     <comp lib="5" loc="(1010,250)" name="Button"/>
     <comp lib="5" loc="(1270,1740)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@29a94545"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7f696428"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1410,1300)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@6aeacd8e"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7ac2ef10"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1450,1300)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@397fcd17"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@313cd6c8"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1470,1520)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@768073d0"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@3f1423aa"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1510,1520)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@15e08328"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@b684844"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(270,850)" name="Button">
       <a name="facing" val="west"/>
     </comp>
     <comp lib="5" loc="(370,910)" name="TTY"/>
-    <comp lib="5" loc="(440,960)" name="Keyboard"/>
+    <comp lib="5" loc="(420,950)" name="Keyboard"/>
     <comp lib="5" loc="(870,1680)" name="Button"/>
     <comp lib="8" loc="(2570,1333)" name="Text">
       <a name="font" val="SansSerif plain 12"/>
@@ -2077,7 +2077,7 @@ end TCL_Generic;
     <wire from="(2690,870)" to="(2780,870)"/>
     <wire from="(270,900)" to="(280,900)"/>
     <wire from="(270,980)" to="(270,1040)"/>
-    <wire from="(270,980)" to="(580,980)"/>
+    <wire from="(270,980)" to="(560,980)"/>
     <wire from="(280,900)" to="(280,910)"/>
     <wire from="(280,910)" to="(310,910)"/>
     <wire from="(2800,1430)" to="(2800,1500)"/>
@@ -2102,18 +2102,18 @@ end TCL_Generic;
     <wire from="(370,930)" to="(380,930)"/>
     <wire from="(380,920)" to="(380,930)"/>
     <wire from="(390,920)" to="(390,960)"/>
-    <wire from="(430,960)" to="(430,990)"/>
-    <wire from="(430,960)" to="(440,960)"/>
-    <wire from="(430,990)" to="(560,990)"/>
+    <wire from="(410,950)" to="(410,990)"/>
+    <wire from="(410,950)" to="(420,950)"/>
+    <wire from="(410,990)" to="(560,990)"/>
     <wire from="(550,1050)" to="(580,1050)"/>
     <wire from="(550,1070)" to="(560,1070)"/>
     <wire from="(550,1090)" to="(580,1090)"/>
+    <wire from="(560,960)" to="(560,980)"/>
     <wire from="(560,990)" to="(560,1070)"/>
     <wire from="(570,380)" to="(600,380)"/>
     <wire from="(570,420)" to="(600,420)"/>
     <wire from="(580,180)" to="(610,180)"/>
     <wire from="(580,220)" to="(610,220)"/>
-    <wire from="(580,970)" to="(580,980)"/>
     <wire from="(590,140)" to="(750,140)"/>
     <wire from="(590,460)" to="(610,460)"/>
     <wire from="(600,1060)" to="(630,1060)"/>
