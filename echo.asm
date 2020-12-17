@@ -19,7 +19,7 @@ _p_len ffec
 # _p_len 0c
 _inp_p ffeb
 # _inp_p ffea
-JMP d
+JMP 19
 .print_char
 AIA 0000
 ATO 0000
@@ -31,9 +31,23 @@ STA _p_counter
 LT _p_len
 UFR 0000
 RST 0000
+.dec
+LDA _counter
+SBA _one
+STA _counter
+LT _zero
+UFR 0000
+RST 0000
 .end
 LDA _counter
-AOT 0000
+ADI _inp_p
+.output_loop
+JST .print_char
+ARD 0000
+JST .dec
+BNE .output_loop
+LDA _zero
+STA _counter
 HLT 0000
 ;;; MAIN
 ;; Print message
