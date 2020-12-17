@@ -11,7 +11,7 @@ def to_hex(w):
 	return hex(int(bin(w),2))[2:].rjust(8,'0')
 
 # Control flags
-
+IRI  = 0b1000000000000000000000000000000000000
 ADRD = 0b100000000000000000000000000000000000
 ADRI = 0b10000000000000000000000000000000000
 ADO = 0b1000000000000000000000000000000000
@@ -84,6 +84,9 @@ ATX = 0b11111
 ARI = 0b100000
 ARD = 0b100001
 AIA = 0b100010
+RIR = 0b100011
+SAR = 0b100100
+TAD = 0b100101
 
 #
 # Establish instructions
@@ -211,6 +214,18 @@ code[2][ARD] = to_hex(ADRD)
 #AIA
 code[2][AIA] = to_hex(ADO | MI)
 code[3][AIA] = to_hex(RO | AI)
+
+#RIR
+code[2][RIR] = to_hex(IO | MI)
+code[3][RIR] = to_hex(IRI | RI)
+
+#SAR
+code[2][SAR] = to_hex(IO | MI)
+code[3][SAR] = to_hex(ADO | RI)
+
+#TAD
+code[2][TAD] = to_hex(ADO | MI)
+code[3][TAD] = to_hex(AO | RI)
 
 for t_step in range(0b0, 0b10000):
 	print("t_step: ", t_step, end=" ")

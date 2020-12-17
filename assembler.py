@@ -51,7 +51,10 @@ opcodes = {
 	'ATX' : 0b11111,# Outputs A to Serial Out
 	'ARI' : 0b100000, # Address register increment	
 	'ARD' : 0b100001, # Address register decrement
-	'AIA' : 0b100010  # Stores value at address register into A register
+	'AIA' : 0b100010, # Stores value at address register into A register
+	'RIR' : 0b100011, # Reads value from Input Register into A register
+	'SAR' : 0b100100, # Stores address register
+	'TAD' : 0b100101  # Stores A register at address in address register
 }
 
 code = ['{0:0{1}X}'.format(0b0,6) for i in range(size)]
