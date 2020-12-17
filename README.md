@@ -77,4 +77,4 @@
 	LDA _start
 	``` 
 # To assemble
-`python3 assembler.py [filename] 256 [output filename]`
+`python3 assembler.py [filename] 65536 [output filename]`
