@@ -78,3 +78,47 @@
 	``` 
 # To assemble
 `python3 assembler.py [filename] 65536 [output filename]`
+
+# HDG
+I've started work on a very simple compiler since assembly coding is hard
+Right now, it can store values in memory and print strings.
+Here's how it works:
+```
+a := 4;
+b := (a + 4);
+c := "Here's a string.";
+print("Messages!");
+```
+That gives the .asm file:
+```
+: 0
+_buffer ffff
+_counter fffe
+_zero fffd
+_one fffc
+# _one 1
+# fffb 4
+# fffa 8
+& fff9 "Here's a string."
+# ffe9 ffe7
+# ffe8 9
+& ffe7 "Messages!"
+ADI ffe9
+LDA _zero
+STA _counter
+.a
+AIA 0000
+ATO 0000
+ARD 0000
+LDA _counter
+ADA _one
+STA _counter
+LT ffe8
+UFR 0000
+BNE .a
+HLT 0000
+```
+
+To use: `python3 main.py [input_file] [output_file]`
+You can then assemble it using the assembler detailed above. 
+The `main.py` file is stored in the `compiler` folder of the main directory. 

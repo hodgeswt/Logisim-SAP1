@@ -1,0 +1,4 @@
+a := 4;
+b := (a + 4); 
+c := "Here's a string.";
+print("Messages!");

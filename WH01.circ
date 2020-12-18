@@ -1550,7 +1550,9 @@ end TCL_Generic;
     <comp lib="5" loc="(270,850)" name="Button">
       <a name="facing" val="west"/>
     </comp>
-    <comp lib="5" loc="(370,910)" name="TTY"/>
+    <comp lib="5" loc="(370,910)" name="TTY">
+      <a name="cols" val="64"/>
+    </comp>
     <comp lib="5" loc="(420,950)" name="Keyboard"/>
     <comp lib="5" loc="(870,1680)" name="Button"/>
     <comp lib="8" loc="(2570,1333)" name="Text">

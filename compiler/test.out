@@ -1,0 +1,26 @@
+: 0
+_buffer ffff
+_counter fffe
+_zero fffd
+_one fffc
+# _one 1
+# fffb 4
+# fffa 8
+& fff9 "Here's a string."
+# ffe9 ffe7
+# ffe8 9
+& ffe7 "Messages!"
+ADI ffe9
+LDA _zero
+STA _counter
+.a
+AIA 0000
+ATO 0000
+ARD 0000
+LDA _counter
+ADA _one
+STA _counter
+LT ffe8
+UFR 0000
+BNE .a
+HLT 0000
