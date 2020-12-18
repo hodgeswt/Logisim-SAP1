@@ -1,35 +1,40 @@
 : 0
-_counter ffff
-# _counter 0
-_length fffe
-# _length 9
-_one fffd
+_buffer ffff
+_counter fffe
+_zero fffd
+_one fffc
 # _one 1
-_zero fffc
-# _zero 0
-_pointer fffb
-# _pointer fffa
-_string fffa
-& _string "Greetings"
-JMP 0a
-.print_char
+# fffb fff9
+# fffa c
+& fff9 "message_one"
+# ffee a
+ADI fffb
+LDA _zero
+STA _counter
+.a
 AIA 0000
 ATO 0000
-RST 0000
-.inc
+ARD 0000
 LDA _counter
 ADA _one
 STA _counter
-LT _length
+LT fffa
 UFR 0000
-RST 0000
-;;;; MAIN
-ADI _pointer
-.loop
-JST .print_char
-ARD 0000 ; decrement pointer
-JST .inc
-BNE .loop
+BNE .a
+# ffed ffeb
+# ffec b
+& ffeb "message_two"
+ADI ffed
 LDA _zero
 STA _counter
+.b
+AIA 0000
+ATO 0000
+ARD 0000
+LDA _counter
+ADA _one
+STA _counter
+LT ffec
+UFR 0000
+BNE .b
 HLT 0000

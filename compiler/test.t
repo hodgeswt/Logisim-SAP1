@@ -1,3 +1,3 @@
 # Testing a comment
-a := 10;
-b := (a * (a * a));
+println("message_one");
+print("message_two");

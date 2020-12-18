@@ -1528,23 +1528,23 @@ end TCL_Generic;
     </comp>
     <comp lib="5" loc="(1010,250)" name="Button"/>
     <comp lib="5" loc="(1270,1740)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7f696428"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7dd30b80"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1410,1300)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7ac2ef10"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@7a7b86e7"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1450,1300)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@313cd6c8"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@68ba33e9"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1470,1520)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@3f1423aa"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@51ec7194"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(1510,1520)" name="Hex Digit Display">
-      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@b684844"/>
+      <a name="Dummy" val="com.cburch.logisim.fpga.data.ComponentMapInformationContainer@3406ef22"/>
       <a name="labelvisible" val="true"/>
     </comp>
     <comp lib="5" loc="(270,850)" name="Button">

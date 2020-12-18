@@ -1,6 +1,8 @@
 import sys
 import ply.lex as lex
 import ply.yacc as yacc
+from string import ascii_lowercase as al
+from itertools import product
 
 reserved = {
     'if' : 'IF',
@@ -87,13 +89,66 @@ def t_eof(t):
 
 lexer = lex.lex()
 
-mem_add = int('ffff',16)
+mem_add = int('fffb',16)
 var = {}
+words = ["".join(p) for i in range(1,6) for p in product(al, repeat = i)]
+ind = 0
 
 def p_start(p):
-	'''start : start variable_assignment
-		| variable_assignment'''
+	'''start : start statement
+		| statement'''
 	p[0] = "\n".join(p[1:])
+
+def p_statement(p):
+	'''statement : variable_assignment
+				| print_cmd
+				| println_cmd'''
+	p[0] = p[1]
+
+def p_println_string(p):
+	'''println_cmd : PRINTLN O_PAREN STRING C_PAREN SEMICOLON'''
+	global mem_add
+	global var 
+	global words
+	global ind 
+	string = p[3]
+	code = "# " + hex(mem_add)[2:] + " " + hex(mem_add - 2)[2:] + "\n"
+	mem_add = mem_add - 1 
+	code += "# " + hex(mem_add)[2:] + " " + hex(len(string) + 1)[2:] + "\n"
+	mem_add = mem_add - 1 
+	code += "& " + hex(mem_add)[2:] + " \"" + string + "\"\n"
+	code += "# " + hex(mem_add - len(string))[2:] + " a\n"
+	code += "ADI " + hex(mem_add + 2)[2:] + "\n"
+	code += "LDA _zero\nSTA _counter\n"
+	code += "." + words[ind] + "\n"
+	code += "AIA 0000\nATO 0000\nARD 0000\nLDA _counter\nADA _one\nSTA _counter\nLT "
+	code += hex(mem_add + 1)[2:] + "\n"
+	code += "UFR 0000\nBNE ." + words[ind] + "\n"
+	ind = ind + 1 
+	mem_add = mem_add - len(string) - 1
+	p[0] = code	
+
+def p_print_string(p):
+	'''print_cmd : PRINT O_PAREN STRING C_PAREN SEMICOLON'''
+	global mem_add
+	global var
+	global words
+	global ind
+	string = p[3]
+	code = "# " + hex(mem_add)[2:] + " " + hex(mem_add - 2)[2:] + "\n"
+	mem_add = mem_add - 1
+	code += "# " + hex(mem_add)[2:] + " " + hex(len(string))[2:] + "\n"
+	mem_add = mem_add - 1
+	code += "& " + hex(mem_add)[2:] + " \"" + string + "\"\n"
+	code += "ADI " + hex(mem_add + 2)[2:] + "\n"
+	code += "LDA _zero\nSTA _counter\n"
+	code += "." + words[ind] + "\n"
+	code += "AIA 0000\nATO 0000\nARD 0000\nLDA _counter\nADA _one\nSTA _counter\nLT "
+	code += hex(mem_add + 1)[2:] + "\n"
+	code += "UFR 0000\nBNE ." + words[ind] + "\n"
+	ind = ind + 1
+	mem_add = mem_add - len(string)
+	p[0] = code
 
 def p_operator(p):
 	'''operator : PLUS
@@ -104,9 +159,12 @@ def p_operator(p):
 
 def p_expr_variable(p):
 	'''expr : O_PAREN VARIABLE_NAME operator VARIABLE_NAME C_PAREN'''
-	p[2] = int(var[p[2]][1],16)
-	p[4] = int(var[p[4]][1],16)
-	
+	try:	
+		p[2] = int(var[p[2]][1],16)
+		p[4] = int(var[p[4]][1],16)
+	except:
+		raise ValueError(f"Variables {p[2]} and {p[4]}  must be of type int.")
+
 	if (p[3] == '+'):
 		p[0] = p[2] + p[4]
 	elif (p[3] == '-'):
@@ -119,8 +177,11 @@ def p_expr_variable(p):
 def p_expr_variable_a(p):
 	'''expr : O_PAREN VARIABLE_NAME operator NUMBER C_PAREN
 			| O_PAREN VARIABLE_NAME operator expr C_PAREN'''
-	p[2] = int(var[p[2]][1],16)
-	
+	try:
+		p[2] = int(var[p[2]][1],16)
+	except:
+		raise ValueError(f"Variable {p[2]} must be of type int.")	
+
 	if (p[3] == '+'):
 		p[0] = p[2] + p[4]
 	elif (p[3] == '-'):
@@ -133,8 +194,11 @@ def p_expr_variable_a(p):
 def p_expr_variable_b(p):
 	'''expr : O_PAREN NUMBER operator VARIABLE_NAME C_PAREN
 			| O_PAREN expr operator VARIABLE_NAME C_PAREN'''
-	p[4] = int(var[p[4]][1],16)
-	
+	try:
+		p[4] = int(var[p[4]][1],16)
+	except:
+		raise ValueError(f"Variable {p[4]} must be of type int.")
+
 	if (p[3] == '+'):
 		p[0] = p[2] + p[4]
 	elif (p[3] == '-'):
@@ -165,7 +229,7 @@ def p_variable_assignment_number(p):
 	global mem_add
 	global var
 	if (p[1] in var.keys()):
-		raise SyntaxError(f"Variable {p[1]} has already been declared.\n")
+		raise ValueError(f"Variable {p[1]} has already been declared.\n")
 	var[p[1]] = [hex(mem_add)[2:],hex(p[3])[2:][-2:],'int']
 	p[0] = '# ' + hex(mem_add)[2:] + ' ' + hex(p[3])[2:][-2:]
 	mem_add = mem_add - 1 
@@ -175,7 +239,7 @@ def p_variable_assignment_string(p):
 	global mem_add
 	global var
 	if (p[1] in var.keys()):
-		raise SyntaxError(f"Variable {p[1]} has already been declared.\n")
+		raise ValueError(f"Variable {p[1]} has already been declared.\n")
 	var[p[1]] = [hex(mem_add)[2:],p[3],'str']
 	p[0] = '& ' + hex(mem_add)[2:] + ' "' + p[3] + '"'
 	mem_add = mem_add - len(p[3])
@@ -185,7 +249,7 @@ def p_variable_assignment_var(p):
 	global mem_add
 	global var
 	if (p[1] in var.keys()):
-		raise SyntaxError(f"Variable {p[1]} has already been declared.\n")
+		raise ValueError(f"Variable {p[1]} has already been declared.\n")
 	
 	val = var[p[3]][1]
 	typ = var[p[3]][2]
@@ -209,5 +273,12 @@ f.close()
 
 result = yacc.parse(inp)
 
+result = ": 0\n_buffer ffff\n_counter fffe\n_zero fffd\n_one fffc\n# _one 1\n" + result + "HLT 0000"
+result = "\n".join([s for s in result.split("\n") if s])
+
+output = sys.argv[2]
+f = open(output, 'w')
+f.write(result)
+f.close()
+
 print(result)
-print(var)	
