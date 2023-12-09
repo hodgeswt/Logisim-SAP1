@@ -70,7 +70,7 @@ def assemble(f, size, output_file):
 			else:
 				a = line.split()[1]
 			a = int(a,16)
-			l = re.findall(r'"(.*?)"',line)[0]
+			l = parse_esc(re.findall(r'"(.*?)"',line)[0])
 			for i in range(0, len(l)):
 				code[a] = hex(ord(l[i]))[2:].rjust(6,'0')
 				a -= 1
@@ -152,7 +152,7 @@ def assemble(f, size, output_file):
 
 def handle_assemble(args):
 	log('Assembling', args)
-	f = f.open(args.input, 'r')
+	f = open(args.input, 'r')
 	input_file = f.read()
 	f.close()
 	size = args.memory
@@ -164,7 +164,6 @@ reserved = {
 	'if' : 'IF',
 	'else' : 'ELSE',
 	'while' : 'WHILE',
-	'println' : 'PRINTLN',
 	'print' : 'PRINT'
 }
 
@@ -192,14 +191,14 @@ tokens = [
 def get_asm_var_name(var_name):
 	return '_' + var_name
 
-t_O_PAREN = r'\(';
-t_C_PAREN = r'\)';
-t_O_BRACE = r'{';
-t_C_BRACE = r'}';
-t_PLUS = r'\+';
-t_MINUS = r'\-';
-t_MULT = r'\*';
-t_DIV = r'/';
+t_O_PAREN = r'\('
+t_C_PAREN = r'\)'
+t_O_BRACE = r'{'
+t_C_BRACE = r'}'
+t_PLUS = r'\+'
+t_MINUS = r'\-'
+t_MULT = r'\*'
+t_DIV = r'/'
 t_SEMICOLON = r';'
 t_ASSIGN = r':='
 t_G_THAN = r'>='
@@ -215,6 +214,8 @@ def t_COMMENT(t):
 def t_STRING(t):
 	r'\".*\"'
 	t.value = t.value[1:-1] # Trim quotations
+
+	# interpolate variable values
 	r = '(?<!{){[^{}]+}(?!})'
 	interp = re.findall(r, t.value)
 	interp_map = {}
@@ -267,6 +268,22 @@ var = {}
 words = ["".join(p) for i in range(1,6) for p in product(al, repeat = i)]
 ind = 0
 
+def parse_esc(s):
+	esc_s = []
+	is_esc = False
+	for c in s:
+		if (is_esc):
+			is_esc = False
+			c = '\\' + c
+			esc_s.append(eval(f"'{c}'"))
+			continue
+		if (c != '\\'):
+			esc_s.append(c)
+		else:
+			is_esc = True
+	s = "".join(esc_s)
+	return s
+
 def p_start(p):
 	'''start : start statement
 		| statement'''
@@ -274,32 +291,8 @@ def p_start(p):
 
 def p_statement(p):
 	'''statement : variable_assignment
-				| print_cmd
-				| println_cmd'''
+				| print_cmd'''
 	p[0] = p[1]
-
-def p_println_string(p):
-	'''println_cmd : PRINTLN O_PAREN STRING C_PAREN SEMICOLON'''
-	global mem_add
-	global var 
-	global words
-	global ind 
-	string = p[3]
-	code = "# " + hex(mem_add)[2:] + " " + hex(mem_add - 2)[2:] + "\n"
-	mem_add = mem_add - 1 
-	code += "# " + hex(mem_add)[2:] + " " + hex(len(string) + 1)[2:] + "\n"
-	mem_add = mem_add - 1 
-	code += "& " + hex(mem_add)[2:] + " \"" + string + "\"\n"
-	code += "# " + hex(mem_add - len(string))[2:] + " a\n"
-	code += "ADI " + hex(mem_add + 2)[2:] + "\n"
-	code += "LDA _zero\nSTA _counter\n"
-	code += "." + words[ind] + "\n"
-	code += "AIA 0000\nATO 0000\nARD 0000\nLDA _counter\nADA _one\nSTA _counter\nLT "
-	code += hex(mem_add + 1)[2:] + "\n"
-	code += "UFR 0000\nBNE ." + words[ind] + "\n"
-	ind = ind + 1 
-	mem_add = mem_add - len(string) - 1
-	p[0] = code	
 
 def p_print_string(p):
 	'''print_cmd : PRINT O_PAREN STRING C_PAREN SEMICOLON'''
@@ -308,9 +301,10 @@ def p_print_string(p):
 	global words
 	global ind
 	string = p[3]
+	str_len = len(string) - len(re.findall(r"\\.", string))
 	code = "# " + hex(mem_add)[2:] + " " + hex(mem_add - 2)[2:] + "\n"
 	mem_add = mem_add - 1
-	code += "# " + hex(mem_add)[2:] + " " + hex(len(string))[2:] + "\n"
+	code += "# " + hex(mem_add)[2:] + " " + hex(str_len)[2:] + "\n"
 	mem_add = mem_add - 1
 	code += "& " + hex(mem_add)[2:] + " \"" + string + "\"\n"
 	code += "ADI " + hex(mem_add + 2)[2:] + "\n"
@@ -320,7 +314,7 @@ def p_print_string(p):
 	code += hex(mem_add + 1)[2:] + "\n"
 	code += "UFR 0000\nBNE ." + words[ind] + "\n"
 	ind = ind + 1
-	mem_add = mem_add - len(string)
+	mem_add = mem_add - str_len
 	p[0] = code
 
 def p_operator(p):
@@ -415,7 +409,10 @@ def p_variable_assignment_string(p):
 		raise ValueError(f"Variable {p[1]} has already been declared.\n")
 	var[p[1]] = [hex(mem_add)[2:],p[3],'str']
 	p[0] = '& ' + hex(mem_add)[2:] + ' "' + p[3] + '"'
-	mem_add = mem_add - len(p[3])
+	# offset memory by number of escaped characters, as any
+	# escaped characters will be replaced with their single-character
+	# ascii equivalent during assembly
+	mem_add = mem_add - len(p[3]) + len(re.findall(r"\\.", p[3]))
 
 def p_variable_assignment_var(p):
 	'variable_assignment : VARIABLE_NAME ASSIGN VARIABLE_NAME SEMICOLON'
@@ -434,7 +431,10 @@ def p_variable_assignment_var(p):
 	else:
 		var[p[1]] = [hex(mem_add)[2:],val,'str']
 		p[0] = '& ' + hex(mem_add)[2:] + ' "' + val + '"'
-		mem_add = mem_add - len(val)
+		# offset memory by number of escaped characters, as any
+		# escaped characters will be replaced with their single-character
+		# ascii equivalent during assembly
+		mem_add = mem_add - len(val) + len(re.findall(r"\\.", val))
 
 yacc.yacc(debug=True)
 

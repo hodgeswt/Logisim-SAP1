@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ASSIGN COMMENT C_BRACE C_PAREN DIV ELSE EQUALS G_THAN ID IF L_THAN MINUS MULT NUMBER O_BRACE O_PAREN PLUS PRINT PRINTLN SEMICOLON STRING VARIABLE_NAME WHILEstart : start statement\n\t\t| statementstatement : variable_assignment\n\t\t\t\t| print_cmd\n\t\t\t\t| println_cmdprintln_cmd : PRINTLN O_PAREN STRING C_PAREN SEMICOLONprint_cmd : PRINT O_PAREN STRING C_PAREN SEMICOLONoperator : PLUS\n\t\t\t| MINUS\n\t\t\t| MULT\n\t\t\t| DIVexpr : O_PAREN VARIABLE_NAME operator VARIABLE_NAME C_PARENexpr : O_PAREN VARIABLE_NAME operator NUMBER C_PAREN\n\t\t\t| O_PAREN VARIABLE_NAME operator expr C_PARENexpr : O_PAREN NUMBER operator VARIABLE_NAME C_PAREN\n\t\t\t| O_PAREN expr operator VARIABLE_NAME C_PARENexpr : O_PAREN expr operator expr C_PAREN\n\t\t\t| O_PAREN NUMBER operator expr C_PAREN\n\t\t\t| O_PAREN expr operator NUMBER C_PAREN\n\t\t\t| O_PAREN NUMBER operator NUMBER C_PARENvariable_assignment : VARIABLE_NAME ASSIGN NUMBER SEMICOLON\n\t\t\t\t\t\t| VARIABLE_NAME ASSIGN expr SEMICOLONvariable_assignment : VARIABLE_NAME ASSIGN STRING SEMICOLONvariable_assignment : VARIABLE_NAME ASSIGN VARIABLE_NAME SEMICOLON'
+_lr_signature = 'ASSIGN COMMENT C_BRACE C_PAREN DIV ELSE EQUALS G_THAN ID IF L_THAN MINUS MULT NUMBER O_BRACE O_PAREN PLUS PRINT SEMICOLON STRING VARIABLE_NAME WHILEstart : start statement\n\t\t| statementstatement : variable_assignment\n\t\t\t\t| print_cmdprint_cmd : PRINT O_PAREN STRING C_PAREN SEMICOLONoperator : PLUS\n\t\t\t| MINUS\n\t\t\t| MULT\n\t\t\t| DIVexpr : O_PAREN VARIABLE_NAME operator VARIABLE_NAME C_PARENexpr : O_PAREN VARIABLE_NAME operator NUMBER C_PAREN\n\t\t\t| O_PAREN VARIABLE_NAME operator expr C_PARENexpr : O_PAREN NUMBER operator VARIABLE_NAME C_PAREN\n\t\t\t| O_PAREN expr operator VARIABLE_NAME C_PARENexpr : O_PAREN expr operator expr C_PAREN\n\t\t\t| O_PAREN NUMBER operator expr C_PAREN\n\t\t\t| O_PAREN expr operator NUMBER C_PAREN\n\t\t\t| O_PAREN NUMBER operator NUMBER C_PARENvariable_assignment : VARIABLE_NAME ASSIGN NUMBER SEMICOLON\n\t\t\t\t\t\t| VARIABLE_NAME ASSIGN expr SEMICOLONvariable_assignment : VARIABLE_NAME ASSIGN STRING SEMICOLONvariable_assignment : VARIABLE_NAME ASSIGN VARIABLE_NAME SEMICOLON'
     
-_lr_action_items = {'VARIABLE_NAME':([0,1,2,3,4,5,9,10,17,20,21,22,23,29,30,31,32,33,34,35,36,37,],[6,6,-2,-3,-4,-5,-1,13,24,-24,-21,-22,-23,38,-8,-9,-10,-11,42,45,-7,-6,]),'PRINT':([0,1,2,3,4,5,9,20,21,22,23,36,37,],[7,7,-2,-3,-4,-5,-1,-24,-21,-22,-23,-7,-6,]),'PRINTLN':([0,1,2,3,4,5,9,20,21,22,23,36,37,],[8,8,-2,-3,-4,-5,-1,-24,-21,-22,-23,-7,-6,]),'$end':([1,2,3,4,5,9,20,21,22,23,36,37,],[0,-2,-3,-4,-5,-1,-24,-21,-22,-23,-7,-6,]),'ASSIGN':([6,],[10,]),'O_PAREN':([7,8,10,17,29,30,31,32,33,34,35,],[11,12,17,17,17,-8,-9,-10,-11,17,17,]),'NUMBER':([10,17,29,30,31,32,33,34,35,],[14,25,39,-8,-9,-10,-11,41,46,]),'STRING':([10,11,12,],[16,18,19,]),'SEMICOLON':([13,14,15,16,27,28,47,48,49,50,51,52,53,54,55,],[20,21,22,23,36,37,-12,-13,-14,-20,-15,-18,-17,-16,-19,]),'C_PAREN':([18,19,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,],[27,28,47,48,49,50,51,52,53,54,55,-12,-13,-14,-20,-15,-18,-17,-16,-19,]),'PLUS':([24,25,26,47,48,49,50,51,52,53,54,55,],[30,30,30,-12,-13,-14,-20,-15,-18,-17,-16,-19,]),'MINUS':([24,25,26,47,48,49,50,51,52,53,54,55,],[31,31,31,-12,-13,-14,-20,-15,-18,-17,-16,-19,]),'MULT':([24,25,26,47,48,49,50,51,52,53,54,55,],[32,32,32,-12,-13,-14,-20,-15,-18,-17,-16,-19,]),'DIV':([24,25,26,47,48,49,50,51,52,53,54,55,],[33,33,33,-12,-13,-14,-20,-15,-18,-17,-16,-19,]),}
+_lr_action_items = {'VARIABLE_NAME':([0,1,2,3,4,7,8,14,16,17,18,19,24,25,26,27,28,29,30,31,],[5,5,-2,-3,-4,-1,10,20,-22,-19,-20,-21,32,-6,-7,-8,-9,36,39,-5,]),'PRINT':([0,1,2,3,4,7,16,17,18,19,31,],[6,6,-2,-3,-4,-1,-22,-19,-20,-21,-5,]),'$end':([1,2,3,4,7,16,17,18,19,31,],[0,-2,-3,-4,-1,-22,-19,-20,-21,-5,]),'ASSIGN':([5,],[8,]),'O_PAREN':([6,8,14,24,25,26,27,28,29,30,],[9,14,14,14,-6,-7,-8,-9,14,14,]),'NUMBER':([8,14,24,25,26,27,28,29,30,],[11,21,33,-6,-7,-8,-9,35,40,]),'STRING':([8,9,],[13,15,]),'SEMICOLON':([10,11,12,13,23,41,42,43,44,45,46,47,48,49,],[16,17,18,19,31,-10,-11,-12,-18,-13,-16,-15,-14,-17,]),'C_PAREN':([15,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,],[23,41,42,43,44,45,46,47,48,49,-10,-11,-12,-18,-13,-16,-15,-14,-17,]),'PLUS':([20,21,22,41,42,43,44,45,46,47,48,49,],[25,25,25,-10,-11,-12,-18,-13,-16,-15,-14,-17,]),'MINUS':([20,21,22,41,42,43,44,45,46,47,48,49,],[26,26,26,-10,-11,-12,-18,-13,-16,-15,-14,-17,]),'MULT':([20,21,22,41,42,43,44,45,46,47,48,49,],[27,27,27,-10,-11,-12,-18,-13,-16,-15,-14,-17,]),'DIV':([20,21,22,41,42,43,44,45,46,47,48,49,],[28,28,28,-10,-11,-12,-18,-13,-16,-15,-14,-17,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'statement':([0,1,],[2,9,]),'variable_assignment':([0,1,],[3,3,]),'print_cmd':([0,1,],[4,4,]),'println_cmd':([0,1,],[5,5,]),'expr':([10,17,29,34,35,],[15,26,40,43,44,]),'operator':([24,25,26,],[29,34,35,]),}
+_lr_goto_items = {'start':([0,],[1,]),'statement':([0,1,],[2,7,]),'variable_assignment':([0,1,],[3,3,]),'print_cmd':([0,1,],[4,4,]),'expr':([8,14,24,29,30,],[12,22,34,37,38,]),'operator':([20,21,22,],[24,29,30,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,28 +27,26 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> start statement','start',2,'p_start','main.py',98),
-  ('start -> statement','start',1,'p_start','main.py',99),
-  ('statement -> variable_assignment','statement',1,'p_statement','main.py',103),
-  ('statement -> print_cmd','statement',1,'p_statement','main.py',104),
-  ('statement -> println_cmd','statement',1,'p_statement','main.py',105),
-  ('println_cmd -> PRINTLN O_PAREN STRING C_PAREN SEMICOLON','println_cmd',5,'p_println_string','main.py',109),
-  ('print_cmd -> PRINT O_PAREN STRING C_PAREN SEMICOLON','print_cmd',5,'p_print_string','main.py',132),
-  ('operator -> PLUS','operator',1,'p_operator','main.py',154),
-  ('operator -> MINUS','operator',1,'p_operator','main.py',155),
-  ('operator -> MULT','operator',1,'p_operator','main.py',156),
-  ('operator -> DIV','operator',1,'p_operator','main.py',157),
-  ('expr -> O_PAREN VARIABLE_NAME operator VARIABLE_NAME C_PAREN','expr',5,'p_expr_variable','main.py',161),
-  ('expr -> O_PAREN VARIABLE_NAME operator NUMBER C_PAREN','expr',5,'p_expr_variable_a','main.py',178),
-  ('expr -> O_PAREN VARIABLE_NAME operator expr C_PAREN','expr',5,'p_expr_variable_a','main.py',179),
-  ('expr -> O_PAREN NUMBER operator VARIABLE_NAME C_PAREN','expr',5,'p_expr_variable_b','main.py',195),
-  ('expr -> O_PAREN expr operator VARIABLE_NAME C_PAREN','expr',5,'p_expr_variable_b','main.py',196),
-  ('expr -> O_PAREN expr operator expr C_PAREN','expr',5,'p_expr','main.py',212),
-  ('expr -> O_PAREN NUMBER operator expr C_PAREN','expr',5,'p_expr','main.py',213),
-  ('expr -> O_PAREN expr operator NUMBER C_PAREN','expr',5,'p_expr','main.py',214),
-  ('expr -> O_PAREN NUMBER operator NUMBER C_PAREN','expr',5,'p_expr','main.py',215),
-  ('variable_assignment -> VARIABLE_NAME ASSIGN NUMBER SEMICOLON','variable_assignment',4,'p_variable_assignment_number','main.py',227),
-  ('variable_assignment -> VARIABLE_NAME ASSIGN expr SEMICOLON','variable_assignment',4,'p_variable_assignment_number','main.py',228),
-  ('variable_assignment -> VARIABLE_NAME ASSIGN STRING SEMICOLON','variable_assignment',4,'p_variable_assignment_string','main.py',238),
-  ('variable_assignment -> VARIABLE_NAME ASSIGN VARIABLE_NAME SEMICOLON','variable_assignment',4,'p_variable_assignment_var','main.py',248),
+  ('start -> start statement','start',2,'p_start','main.py',288),
+  ('start -> statement','start',1,'p_start','main.py',289),
+  ('statement -> variable_assignment','statement',1,'p_statement','main.py',293),
+  ('statement -> print_cmd','statement',1,'p_statement','main.py',294),
+  ('print_cmd -> PRINT O_PAREN STRING C_PAREN SEMICOLON','print_cmd',5,'p_print_string','main.py',298),
+  ('operator -> PLUS','operator',1,'p_operator','main.py',321),
+  ('operator -> MINUS','operator',1,'p_operator','main.py',322),
+  ('operator -> MULT','operator',1,'p_operator','main.py',323),
+  ('operator -> DIV','operator',1,'p_operator','main.py',324),
+  ('expr -> O_PAREN VARIABLE_NAME operator VARIABLE_NAME C_PAREN','expr',5,'p_expr_variable','main.py',328),
+  ('expr -> O_PAREN VARIABLE_NAME operator NUMBER C_PAREN','expr',5,'p_expr_variable_a','main.py',345),
+  ('expr -> O_PAREN VARIABLE_NAME operator expr C_PAREN','expr',5,'p_expr_variable_a','main.py',346),
+  ('expr -> O_PAREN NUMBER operator VARIABLE_NAME C_PAREN','expr',5,'p_expr_variable_b','main.py',362),
+  ('expr -> O_PAREN expr operator VARIABLE_NAME C_PAREN','expr',5,'p_expr_variable_b','main.py',363),
+  ('expr -> O_PAREN expr operator expr C_PAREN','expr',5,'p_expr','main.py',379),
+  ('expr -> O_PAREN NUMBER operator expr C_PAREN','expr',5,'p_expr','main.py',380),
+  ('expr -> O_PAREN expr operator NUMBER C_PAREN','expr',5,'p_expr','main.py',381),
+  ('expr -> O_PAREN NUMBER operator NUMBER C_PAREN','expr',5,'p_expr','main.py',382),
+  ('variable_assignment -> VARIABLE_NAME ASSIGN NUMBER SEMICOLON','variable_assignment',4,'p_variable_assignment_number','main.py',394),
+  ('variable_assignment -> VARIABLE_NAME ASSIGN expr SEMICOLON','variable_assignment',4,'p_variable_assignment_number','main.py',395),
+  ('variable_assignment -> VARIABLE_NAME ASSIGN STRING SEMICOLON','variable_assignment',4,'p_variable_assignment_string','main.py',405),
+  ('variable_assignment -> VARIABLE_NAME ASSIGN VARIABLE_NAME SEMICOLON','variable_assignment',4,'p_variable_assignment_var','main.py',418),
 ]
