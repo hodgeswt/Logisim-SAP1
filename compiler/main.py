@@ -131,18 +131,20 @@ def assemble(f, size, output_file):
 			s += w + " "
 			c += 1
 	last_output = ""
-	for line in s.splitlines():
-		if line != empty_line:
-			if (last_output == "."):
-				print()
-				print(line)
-				last_output = ""
+
+	if (args.verbose):
+		for line in s.splitlines():
+			if line != empty_line:
+				if (last_output == "."):
+					print()
+					print(line)
+					last_output = ""
+				else:
+					print(line)
+					last_output = ""
 			else:
-				print(line)
-				last_output = ""
-		else:
-			last_output = "."
-			print(".", end="")
+				last_output = "."
+				print(".", end="")
 
 	f = open(output_file, 'w')
 	f.write(s)
