@@ -187,6 +187,9 @@ tokens = [
 	'ID'
 ] + list(reserved.values())
 
+def get_asm_var_name(var_name):
+	return '_' + var_name
+
 t_O_PAREN = r'\(';
 t_C_PAREN = r'\)';
 t_O_BRACE = r'{';
@@ -210,6 +213,20 @@ def t_COMMENT(t):
 def t_STRING(t):
 	r'\".*\"'
 	t.value = t.value[1:-1] # Trim quotations
+	r = '(?<!{){[^{}]+}(?!})'
+	interp = re.findall(r, t.value)
+	interp_map = {}
+
+	for var_name in interp:
+		v = get_asm_var_name(var_name[1:-1])
+		if (v not in var.keys()):
+			raise ValueError(f"Variable {var_name[1:-1]} not declared.")
+		interp_map[var_name] = var[v][1]
+
+	def interp_var(match):
+		return interp_map[match.group(0)]
+
+	t.value = re.sub(r, interp_var, t.value)
 	return t
 
 def t_VARIABLE_NAME(t):
@@ -217,7 +234,7 @@ def t_VARIABLE_NAME(t):
 	if (t.value in reserved.keys()):
 		t.type = reserved.get(t.value,'ID')
 	else:
-		t.value = '_' + t.value
+		t.value = get_asm_var_name(t.value)
 	return t
 
 def t_ID(t):
