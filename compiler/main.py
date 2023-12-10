@@ -38,7 +38,7 @@ def assemble(f, size, output_file):
 		'CTA' : 0b10111,# Move C register to A register
 		'ATB' : 0b11000,# Move A register to B register
 		'ATC' : 0b11001,# Move A register to C register
-		'LT'  : 0b11010,# Loads value at given address into TMP register
+		'LDT' : 0b11010,# Loads value at given address into TMP register
 		'ATO' : 0b11011,# Outputs A to Output Register 2
 		'BTO' : 0b11100,# Outputs B to Output Register 2
 		'ADI' : 0b11101,# Address Register in
@@ -310,7 +310,7 @@ def p_print_string(p):
 	code += "ADI " + hex(mem_add + 2)[2:] + "\n"
 	code += "LDA _zero\nSTA _counter\n"
 	code += "." + words[ind] + "\n"
-	code += "AIA 0000\nATO 0000\nARD 0000\nLDA _counter\nADA _one\nSTA _counter\nLT "
+	code += "AIA 0000\nATO 0000\nARD 0000\nLDA _counter\nADA _one\nSTA _counter\nLDT "
 	code += hex(mem_add + 1)[2:] + "\n"
 	code += "UFR 0000\nBNE ." + words[ind] + "\n"
 	ind = ind + 1

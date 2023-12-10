@@ -21,10 +21,10 @@ ADI _inp_p
 .inp_loop
 RIR _buffer
 LDA _buffer
-LT _zero
+LDT _zero
 UFR 0000
 BEQ .inp_loop ; Wait for input
-LT _cr
+LDT _cr
 UFR 0000
 BEQ .end ; If end of input, do smth else
 TAD 0000 ; Otherwise save at pointer

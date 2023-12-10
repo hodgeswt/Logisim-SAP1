@@ -45,7 +45,7 @@
 	- CTA    : C -> A
 	- ATB    : A -> B
 	- ATC    : A -> C
-	- LT  hh : Loads TMP register with value at address
+	- LDT  hh : Loads TMP register with value at address
 	- ATO    : Output A to Output Register 2
 	- BTO    : Output B to Output Register 2
 	- AIA    : Loads A register with value at memory address stored in the address register

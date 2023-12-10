@@ -28,14 +28,14 @@ RST 0000
 LDA _p_counter
 ADA _one
 STA _p_counter
-LT _p_len
+LDT _p_len
 UFR 0000
 RST 0000
 .dec
 LDA _counter
 SBA _one
 STA _counter
-LT _zero
+LDT _zero
 UFR 0000
 RST 0000
 .end
@@ -64,10 +64,10 @@ ADI _inp_p
 .inp_loop
 RIR _buffer
 LDA _buffer
-LT _zero
+LDT _zero
 UFR 0000
 BEQ .inp_loop ; Wait for input
-LT _cr
+LDT _cr
 UFR 0000
 BEQ .end ; If end of input, do smth else
 TAD 0000 ; Otherwise save at pointer

@@ -76,7 +76,7 @@ BTA = 0b10110
 CTA = 0b10111
 ATB = 0b11000
 ATC = 0b11001
-LT  = 0b11010
+LDT  = 0b11010
 ATO = 0b11011
 BTO = 0b11100
 ADI = 0b11101
@@ -193,9 +193,9 @@ code[2][ATB] = to_hex(AO | BI)
 #ATC
 code[2][ATC] = to_hex(AO | CI)
 
-#LT
-code[2][LT] = to_hex(IO | MI)
-code[3][LT] = to_hex(RO | TI)
+#LDT
+code[2][LDT] = to_hex(IO | MI)
+code[3][LDT] = to_hex(RO | TI)
 
 #ATX
 code[2][ATX] = to_hex(AO | SOI)

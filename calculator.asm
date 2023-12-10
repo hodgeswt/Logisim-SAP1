@@ -36,7 +36,7 @@ PHA 0000
 LDA _arithmetic_counter ; Increment Counter
 ADA _one
 STA _arithmetic_counter
-LT _arithmetic_buffer
+LDT _arithmetic_buffer
 UFR 0000
 PLA 0000
 BNE .m_loop ; If we haven't added A+A B times, loop
@@ -75,7 +75,7 @@ RST 0000
 .input
 RIR _arithmetic_buffer
 LDA _arithmetic_buffer
-LT _zero
+LDT _zero
 UFR 0000
 BEQ .input ; If input is nothing, wait for input
 RST 0000
@@ -130,10 +130,10 @@ SBA _conv
 STA _b
 ; Determine operation
 LDA _op
-LT _plus
+LDT _plus
 UFR 0000
 BEQ .perform_add
-LT _mult
+LDT _mult
 UFR 0000
 BEQ .perform_mult
 LDA _err
